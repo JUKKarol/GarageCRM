@@ -25,6 +25,8 @@ namespace Motocomplex.Data
             {
                 entity.HasKey(r => r.Id);
 
+                entity.Property(r => r.Price).IsRequired();
+
                 entity.HasOne(r => r.Car)
                     .WithMany(c => c.Repairs)
                     .HasForeignKey(r => r.CarId)
@@ -41,8 +43,8 @@ namespace Motocomplex.Data
             {
                 entity.HasKey(c => c.Id);
 
-                entity.Property(c => c.Name);
-                entity.Property(c => c.PhoneNumber);
+                entity.Property(c => c.Name).IsRequired();
+                entity.Property(c => c.PhoneNumber).IsRequired();
 
                 entity.HasMany(c => c.Repairs)
                     .WithOne(r => r.Customer)
@@ -54,6 +56,9 @@ namespace Motocomplex.Data
             {
                 entity.HasKey(e => e.Id);
 
+                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Surname).IsRequired();
+
                 entity.HasMany(e => e.Repairs)
                     .WithMany(r => r.Employees);
             });
@@ -62,16 +67,11 @@ namespace Motocomplex.Data
             {
                 entity.HasKey(c => c.Id);
 
-                entity.Property(c => c.Engine);
-                entity.Property(c => c.Vin);
-                entity.Property(c => c.yearOfProduction);
-                entity.Property(c => c.BrandId);
-                entity.Property(c => c.ModelId);
+                entity.Property(c => c.Engine).IsRequired();
+                entity.Property(c => c.Vin).IsRequired();
+                entity.Property(c => c.yearOfProduction).IsRequired();
+                entity.Property(c => c.ModelId).IsRequired();
 
-                entity.HasOne(c => c.Brand)
-                    .WithMany(b => b.Cars)
-                    .HasForeignKey(c => c.BrandId)
-                    .OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(c => c.Model)
                     .WithMany(m => m.Cars)
                     .HasForeignKey(c => c.ModelId)
@@ -86,19 +86,19 @@ namespace Motocomplex.Data
             {
                 entity.HasKey(b => b.Id);
 
+                entity.Property(b => b.Name).IsRequired();
+
                 entity.HasMany(b => b.Models)
                     .WithOne(m => m.Brand)
                     .HasForeignKey(m => m.brandId)
-                    .OnDelete(DeleteBehavior.NoAction);
-                entity.HasMany(b => b.Cars)
-                    .WithOne(c => c.Brand)
-                    .HasForeignKey(c => c.BrandId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Model>(entity =>
             {
                 entity.HasKey(m => m.Id);
+
+                entity.Property(m => m.Name).IsRequired();
 
                 entity.HasOne(m => m.Brand)
                     .WithMany(b => b.Models)

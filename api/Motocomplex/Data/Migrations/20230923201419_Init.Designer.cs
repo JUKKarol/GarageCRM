@@ -12,7 +12,7 @@ using Motocomplex.Data;
 namespace Motocomplex.Migrations
 {
     [DbContext(typeof(MotocomplexContext))]
-    [Migration("20230923174258_Init")]
+    [Migration("20230923201419_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -50,6 +50,7 @@ namespace Motocomplex.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -66,9 +67,6 @@ namespace Motocomplex.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -82,14 +80,13 @@ namespace Motocomplex.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Vin")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("yearOfProduction")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
 
                     b.HasIndex("ModelId");
 
@@ -115,12 +112,14 @@ namespace Motocomplex.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nip")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -147,12 +146,14 @@ namespace Motocomplex.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -173,6 +174,7 @@ namespace Motocomplex.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -241,19 +243,11 @@ namespace Motocomplex.Migrations
 
             modelBuilder.Entity("Motocomplex.Entities.Car", b =>
                 {
-                    b.HasOne("Motocomplex.Entities.Brand", "Brand")
-                        .WithMany("Cars")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Motocomplex.Entities.Model", "Model")
                         .WithMany("Cars")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Brand");
 
                     b.Navigation("Model");
                 });
@@ -290,8 +284,6 @@ namespace Motocomplex.Migrations
 
             modelBuilder.Entity("Motocomplex.Entities.Brand", b =>
                 {
-                    b.Navigation("Cars");
-
                     b.Navigation("Models");
                 });
 
