@@ -30,7 +30,11 @@ namespace Motocomplex.Data.Repositories.CustomerRepository
         public async Task<Customer> UpdateCustomer(Customer updatedCustomer)
         {
             var customer = await _db.Customers.FirstOrDefaultAsync(c => c.Id == updatedCustomer.Id);
+
+            var customerCraetedAt = customer.CreatedAt;
             customer = updatedCustomer;
+            customer.CreatedAt = customerCraetedAt;
+
             await _db.SaveChangesAsync();
 
             return customer;

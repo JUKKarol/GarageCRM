@@ -1,6 +1,12 @@
 
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Motocomplex.Data;
+using Motocomplex.Data.Repositories.CustomerRepository;
+using Motocomplex.DTOs.CustomerDtos;
+using Motocomplex.Services.CustomerService;
+using Motocomplex.Utilities.Validation;
+using Motocomplex.Utilities.Validators;
 
 namespace Motocomplex
 {
@@ -19,6 +25,14 @@ namespace Motocomplex
 
             builder.Services.AddDbContext<MotocomplexContext>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddScoped<IValidator<CustomerCreateDto>, CustomerCreateValidator>();
+            builder.Services.AddScoped<IValidator<CustomerUpdateDto>, CustomerUpdateValidator>();
+
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+
             var app = builder.Build();
             var scope = app.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetService<MotocomplexContext>();
