@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.DTOs.CustomerDtos;
+using Motocomplex.DTOs.SharedDTOs;
 using Motocomplex.Entities;
 using Motocomplex.Utilities.Mappings;
+using Sieve.Models;
 
 namespace Motocomplex.Services.CustomerService
 {
@@ -23,7 +25,20 @@ namespace Motocomplex.Services.CustomerService
             return _mapper.Map<CustomerDetailsDto>(customer);
         }
 
-        //get customer list with search
+        public async Task<RespondListDto<CustomerDetailsDto>> GetCustomers(SieveModel query)
+        {
+            int pageSize = query.PageSize != null ? (int)query.PageSize : 40;
+
+            var customers = await _customerRepository.GetCustomers(query);
+            var customersDto = _mapper.Map<List<CustomerDetailsDto>>(customers);
+
+            RespondListDto<CustomerDetailsDto> respondListDto = new RespondListDto<CustomerDetailsDto>();
+            respondListDto.Items = customersDto;
+            respondListDto.ItemsCount = await _customerRepository.GetCustomersCount(query);
+            respondListDto.PagesCount = (int)Math.Ceiling((double)respondListDto.ItemsCount / pageSize);
+
+            return respondListDto;
+        }
 
         public async Task<CustomerDetailsDto> CreateCustomer(CustomerCreateDto customerDto)
         {

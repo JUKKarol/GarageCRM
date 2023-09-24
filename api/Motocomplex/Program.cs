@@ -5,8 +5,11 @@ using Motocomplex.Data;
 using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.Services.CustomerService;
+using Motocomplex.Utilities.Sieve;
 using Motocomplex.Utilities.Validation;
 using Motocomplex.Utilities.Validators;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace Motocomplex
 {
@@ -23,6 +26,8 @@ namespace Motocomplex
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
+
             builder.Services.AddDbContext<MotocomplexContext>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -32,6 +37,8 @@ namespace Motocomplex
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+            builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
             var app = builder.Build();
             var scope = app.Services.CreateScope();

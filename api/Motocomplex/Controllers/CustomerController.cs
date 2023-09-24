@@ -6,6 +6,7 @@ using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.Services.CustomerService;
 using Motocomplex.Utilities.Validation;
 using Motocomplex.Utilities.Validators;
+using Sieve.Models;
 using System.Security.Claims;
 
 namespace Motocomplex.Controllers
@@ -25,11 +26,11 @@ namespace Motocomplex.Controllers
             _customerUpdateValidator = customerUpdateValidator;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetCustomers()
-        //{
-
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetCustomers([FromQuery] SieveModel query)
+        {
+            return Ok(await _customerService.GetCustomers(query));
+        }
 
         [HttpGet("{customerId}")]
         public async Task<IActionResult> GetCustomer(Guid customerId)
@@ -76,7 +77,7 @@ namespace Motocomplex.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCustomer(Guid customerId)
+        public async Task<IActionResult> DeleteCustomer([FromQuery]Guid customerId)
         {
             if (await _customerService.GetCustomerById(customerId) == null)
             {
