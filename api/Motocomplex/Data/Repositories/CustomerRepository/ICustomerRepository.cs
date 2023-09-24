@@ -10,6 +10,7 @@ namespace Motocomplex.Data.Repositories.CustomerRepository
         Task<int> GetCustomersCount(SieveModel query);
         Task<Customer> CreateCustomer(Customer customer);
         Task<Customer> UpdateCustomer(Customer updatedCustomer);
-        Task<Customer> DeleteCustomer(Guid customerId);
+        Task<Customer> AddToArchive(Guid customerId);
+        Task<Customer> BackFromArchive(Guid customerId);
     }
 }

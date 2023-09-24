@@ -76,15 +76,40 @@ namespace Motocomplex.Controllers
             return Ok(await _customerService.UpdateCustomer(customerDto));
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCustomer([FromQuery]Guid customerId)
+        [HttpPut("archive")]
+        public async Task<IActionResult> ArchiveCustomer([FromQuery]Guid customerId)
         {
             if (await _customerService.GetCustomerById(customerId) == null)
             {
                 return NotFound("Customer not found");
             }
 
-            return Ok(await _customerService.DeleteCustomer(customerId));
+            if (await _customerService.CheckIsCustomerInArchive(customerId) == true)
+            { 
+                return BadRequest("Customer is in archive already");
+            }
+
+            await _customerService.ChangeArchiveBool(customerId, true);
+
+            return Ok("Customer archived");
+        }
+
+        [HttpPut("archive/back")]
+        public async Task<IActionResult> ArchiveBackCustomer([FromQuery] Guid customerId)
+        {
+            if (await _customerService.GetCustomerById(customerId) == null)
+            {
+                return NotFound("Customer not found");
+            }
+
+            if (await _customerService.CheckIsCustomerInArchive(customerId) == false)
+            {
+                return BadRequest("Customer is not in archive");
+            }
+
+            await _customerService.ChangeArchiveBool(customerId, false);
+
+            return Ok("Customer archived back");
         }
     }
 }

@@ -12,6 +12,7 @@
         public string City { get; set; }
         public string Address { get; set; }
         public string PostalCode { get; set; }
+        public bool IsArchive { get; set; } = false;
 
         public List<Repair> Repairs { get; set; }
     }

@@ -68,10 +68,19 @@ namespace Motocomplex.Data.Repositories.CustomerRepository
             return customer;
         }
 
-        public async Task<Customer> DeleteCustomer(Guid customerId)
+        public async Task<Customer> AddToArchive(Guid customerId)
         {
             var customer = await _db.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
-            _db.Customers.Remove(customer);
+            customer.IsArchive = true;
+            await _db.SaveChangesAsync();
+
+            return customer;
+        }
+
+        public async Task<Customer> BackFromArchive(Guid customerId)
+        {
+            var customer = await _db.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
+            customer.IsArchive = false;
             await _db.SaveChangesAsync();
 
             return customer;

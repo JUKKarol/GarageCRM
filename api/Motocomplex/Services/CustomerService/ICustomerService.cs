@@ -10,6 +10,7 @@ namespace Motocomplex.Services.CustomerService
         Task<RespondListDto<CustomerDetailsDto>> GetCustomers(SieveModel query);
         Task<CustomerDetailsDto> CreateCustomer(CustomerCreateDto customerDto);
         Task<CustomerDetailsDto> UpdateCustomer(CustomerUpdateDto customerDto);
-        Task<CustomerDetailsDto> DeleteCustomer(Guid customerId);
+        Task<bool> CheckIsCustomerInArchive(Guid customerId);
+        Task ChangeArchiveBool(Guid customerId, bool isArchive);
     }
 }

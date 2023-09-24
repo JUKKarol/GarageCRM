@@ -55,11 +55,31 @@ namespace Motocomplex.Services.CustomerService
 
             return _mapper.Map<CustomerDetailsDto>(cusotmer);
         }
-        public async Task<CustomerDetailsDto> DeleteCustomer(Guid customerId)
-        {
-            var customer = await _customerRepository.DeleteCustomer(customerId);
 
-            return _mapper.Map<CustomerDetailsDto>(customer);
+        public async Task<bool> CheckIsCustomerInArchive(Guid customerId)
+        {
+            var customer = await _customerRepository.GetCustomerById(customerId);
+
+            if (customer.IsArchive == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task ChangeArchiveBool(Guid customerId, bool isArchive)
+        {
+            if (isArchive == true)
+            {
+                await _customerRepository.AddToArchive(customerId);
+            }
+            else
+            { 
+                await _customerRepository.BackFromArchive(customerId);
+            }
         }
     }
 }
