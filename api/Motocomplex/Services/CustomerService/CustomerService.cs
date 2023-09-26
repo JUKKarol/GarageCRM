@@ -50,10 +50,10 @@ namespace Motocomplex.Services.CustomerService
 
         public async Task<CustomerDetailsDto> UpdateCustomer(CustomerUpdateDto customerDto)
         {
-            var cusotmer = _mapper.Map<Customer>(customerDto);
-            await _customerRepository.UpdateCustomer(cusotmer);
+            var customer = _mapper.Map<Customer>(customerDto);
+            await _customerRepository.UpdateCustomer(customer);
 
-            return _mapper.Map<CustomerDetailsDto>(cusotmer);
+            return _mapper.Map<CustomerDetailsDto>(customer);
         }
 
         public async Task<bool> CheckIsCustomerInArchive(Guid customerId)
