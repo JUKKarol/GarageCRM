@@ -10,6 +10,7 @@ namespace Motocomplex.Utilities.Mappings
         {
             CreateMap<CustomerDetailsDto, Customer>().ReverseMap();
             CreateMap<CustomerCreateDto, Customer>().ReverseMap();
+            CreateMap<CustomerUpdateDto, Customer>().ReverseMap();
         }
     }
 }
