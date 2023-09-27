@@ -10,9 +10,11 @@ services:
    - db
  db:
     image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=caching_sha2_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_password
+      ConnectionStrings__MotocomplexConnectionString: "Server=(localdb)\\mssqllocaldb;Database=MotocomplexDb;Trusted_Connection=True;"
     ports:
       - "3306:3306"
+      
