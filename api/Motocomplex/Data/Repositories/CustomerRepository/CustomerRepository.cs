@@ -17,9 +17,9 @@ namespace Motocomplex.Data.Repositories.CustomerRepository
             _sieveProcessor = sieveProcessor;
         }
 
-        public async Task<Customer> GetCustomerById(Guid CustomerId)
+        public async Task<Customer> GetCustomerById(Guid customerId)
         {
-            return await _db.Customers.FirstOrDefaultAsync(c => c.Id == CustomerId);
+            return await _db.Customers.FirstOrDefaultAsync(c => c.Id == customerId);
         }
 
         public async Task<List<Customer>> GetCustomers(SieveModel query)
