@@ -7,14 +7,15 @@ services:
   ports:
    - "8080:80"
   depends_on:
-   - db
- db:
-    image: mysql:8.0
-    command: --default-authentication-plugin=caching_sha2_password
-    restart: always
+   - sqldata
+  environment:
+    ConnectionStrings__MotocomplexConnectionString: "Server=localhost\\mssqllocaldb;Database=MotocomplexDb;User Id=Motocomplex;Password=Motocomplex@;"
+ sqldata:
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      ConnectionStrings__MotocomplexConnectionString: "Server=(localdb)\\mssqllocaldb;Database=MotocomplexDb;Trusted_Connection=True;"
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Motocomplex@
+      - MSSQL_SA_USER=Motocomplex
     ports:
-      - "3306:3306"
+      - "5434:1433"
       
