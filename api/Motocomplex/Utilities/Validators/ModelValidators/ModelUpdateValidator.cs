@@ -7,6 +7,9 @@ namespace Motocomplex.Utilities.Validators.ModelValidators
     {
         public ModelUpdateValidator()
         {
+            RuleFor(m => m.Id)
+                .NotEmpty().WithMessage("Id is required.");
+
             RuleFor(m => m.brandId)
                 .NotEmpty().WithMessage("Brand Id is required.");
 

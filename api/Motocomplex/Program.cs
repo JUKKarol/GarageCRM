@@ -59,9 +59,6 @@ namespace Motocomplex
             var scope = app.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetService<MotocomplexContext>();
 
-            var connectionString = builder.Configuration.GetConnectionString("MotocomplexConnectionString");
-            Console.WriteLine(connectionString);
-
             var pendingMigrations = dbContext.Database.GetPendingMigrations();
             if (pendingMigrations.Any())
             {
