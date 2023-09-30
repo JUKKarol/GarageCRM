@@ -59,8 +59,10 @@ namespace Motocomplex.Data.Repositories.BrandRepository
             var brand = await _db.Brands.FirstOrDefaultAsync(c => c.Id == updatedBrand.Id);
 
             var brandCraetedAt = brand.CreatedAt;
-            brand = updatedBrand;
-            brand.CreatedAt = brandCraetedAt;
+            updatedBrand.CreatedAt = brandCraetedAt;
+
+            var entry = _db.Entry(brand);
+            entry.CurrentValues.SetValues(updatedBrand);
 
             await _db.SaveChangesAsync();
 

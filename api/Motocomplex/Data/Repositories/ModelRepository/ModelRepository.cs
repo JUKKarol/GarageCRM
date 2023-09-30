@@ -59,8 +59,10 @@ namespace Motocomplex.Data.Repositories.ModelRepository
             var model = await _db.Models.FirstOrDefaultAsync(c => c.Id == updatedModel.Id);
 
             var modelCraetedAt = model.CreatedAt;
-            model = updatedModel;
-            model.CreatedAt = modelCraetedAt;
+            updatedModel.CreatedAt = modelCraetedAt;
+
+            var entry = _db.Entry(model);
+            entry.CurrentValues.SetValues(updatedModel);
 
             await _db.SaveChangesAsync();
 
