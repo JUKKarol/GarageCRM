@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using Motocomplex.DTOs.CustomerDtos;
 
-namespace Motocomplex.Utilities.Validators
+namespace Motocomplex.Utilities.Validators.CustomerValidators
 {
-    public class CustomerUpdateValidator :AbstractValidator<CustomerUpdateDto>
+    public class CustomerUpdateValidator : AbstractValidator<CustomerUpdateDto>
     {
         public CustomerUpdateValidator()
         {

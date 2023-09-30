@@ -2,12 +2,19 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Motocomplex.Data;
+using Motocomplex.Data.Repositories.BrandRepository;
 using Motocomplex.Data.Repositories.CustomerRepository;
+using Motocomplex.Data.Repositories.ModelRepository;
+using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.CustomerDtos;
+using Motocomplex.DTOs.ModelDTOs;
+using Motocomplex.Services.BrandService;
 using Motocomplex.Services.CustomerService;
+using Motocomplex.Services.ModelService;
 using Motocomplex.Utilities.Sieve;
-using Motocomplex.Utilities.Validation;
-using Motocomplex.Utilities.Validators;
+using Motocomplex.Utilities.Validators.BrandValidators;
+using Motocomplex.Utilities.Validators.CustomerValidators;
+using Motocomplex.Utilities.Validators.ModelValidators;
 using Sieve.Models;
 using Sieve.Services;
 
@@ -33,16 +40,27 @@ namespace Motocomplex
 
             builder.Services.AddScoped<IValidator<CustomerCreateDto>, CustomerCreateValidator>();
             builder.Services.AddScoped<IValidator<CustomerUpdateDto>, CustomerUpdateValidator>();
+            builder.Services.AddScoped<IValidator<BrandCreateDto>, BrandCreateValidator>();
+            builder.Services.AddScoped<IValidator<BrandUpdateDto>, BrandUpdateValidators>();
+            builder.Services.AddScoped<IValidator<ModelCreateDto>, ModelCreateValidator>();
+            builder.Services.AddScoped<IValidator<ModelUpdateDto>, ModelUpdateValidator>();
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<IModelRepository, ModelRepository>();
 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddScoped<IModelService, ModelService>();
 
             builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
             var app = builder.Build();
             var scope = app.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetService<MotocomplexContext>();
+
+            var connectionString = builder.Configuration.GetConnectionString("MotocomplexConnectionString");
+            Console.WriteLine(connectionString);
 
             var pendingMigrations = dbContext.Database.GetPendingMigrations();
             if (pendingMigrations.Any())

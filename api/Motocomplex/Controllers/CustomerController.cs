@@ -1,13 +1,8 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.Services.CustomerService;
-using Motocomplex.Utilities.Validation;
-using Motocomplex.Utilities.Validators;
 using Sieve.Models;
-using System.Security.Claims;
 
 namespace Motocomplex.Controllers
 {
