@@ -9,13 +9,9 @@ services:
   depends_on:
    - sqldata
   environment:
-    ConnectionStrings__MotocomplexConnectionString: "Server=localhost\\mssqllocaldb;Database=MotocomplexDb;User Id=Motocomplex;Password=Motocomplex@;"
+    ConnectionStrings__MotocomplexConnectionString: "Server=sqldata;Database=MotocomplexDb;User Id=sa;Password=Motocomplex@;TrustServerCertificate=True"
  sqldata:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Motocomplex@
-      - MSSQL_SA_USER=Motocomplex
-    ports:
-      - "5434:1433"
-      
