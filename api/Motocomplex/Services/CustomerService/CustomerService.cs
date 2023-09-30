@@ -19,9 +19,9 @@ namespace Motocomplex.Services.CustomerService
             _mapper = mapper;
         }
 
-        public async Task<CustomerDetailsDto> GetCustomerById(Guid CustomerId)
+        public async Task<CustomerDetailsDto> GetCustomerById(Guid customerId)
         {
-            var customer = await _customerRepository.GetCustomerById(CustomerId);
+            var customer = await _customerRepository.GetCustomerById(customerId);
             return _mapper.Map<CustomerDetailsDto>(customer);
         }
 
