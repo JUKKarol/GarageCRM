@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Motocomplex.DTOs.ModelDTOs;
+using Motocomplex.Services.BrandService;
 using Motocomplex.Services.ModelService;
 using Sieve.Models;
 
@@ -11,14 +12,16 @@ namespace Motocomplex.Controllers
     public class ModelController : ControllerBase
     {
         private readonly IModelService _modelService;
+        private readonly IBrandService _brandService;
         private readonly IValidator<ModelCreateDto> _modelCreateValidator;
         private readonly IValidator<ModelUpdateDto> _modelUpdateValidator;
 
-        public ModelController(IModelService modelService, IValidator<ModelCreateDto> modelCreateValidator, IValidator<ModelUpdateDto> modelUpdateValidator)
+        public ModelController(IModelService modelService, IBrandService brandService, IValidator<ModelCreateDto> modelCreateValidator, IValidator<ModelUpdateDto> modelUpdateValidator)
         {
             _modelService = modelService;
             _modelCreateValidator = modelCreateValidator;
             _modelUpdateValidator = modelUpdateValidator;
+            _brandService = brandService;
         }
 
         [HttpGet]
@@ -50,6 +53,12 @@ namespace Motocomplex.Controllers
                 return BadRequest(string.Join(Environment.NewLine, validationErrors));
             }
 
+            var brandForCurrentModel = await _brandService.GetBrandById(modelDto.brandId);
+            if (brandForCurrentModel == null)
+            {
+                return NotFound("Brand not found");
+            }
+
             return Ok(await _modelService.CreateModel(modelDto));
         }
 
@@ -66,6 +75,12 @@ namespace Motocomplex.Controllers
             if (await _modelService.GetModelById(modelDto.Id) == null)
             {
                 return NotFound("Model not found");
+            }
+
+            var brandForCurrentModel = await _brandService.GetBrandById(modelDto.brandId);
+            if (brandForCurrentModel == null)
+            {
+                return NotFound("Brand not found");
             }
 
             return Ok(await _modelService.UpdateModel(modelDto));
