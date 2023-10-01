@@ -21,6 +21,11 @@ namespace Motocomplex.Data.Repositories.BrandRepository
             return await _db.Brands.FirstOrDefaultAsync(c => c.Id == brandId);
         }
 
+        public async Task<Brand> GetBrandByName(string brandName)
+        {
+            return await _db.Brands.FirstOrDefaultAsync(c => c.Name.ToLower() == brandName.ToLower());
+        }
+
         public async Task<List<Brand>> GetBrands(SieveModel query)
         {
             var brands = _db

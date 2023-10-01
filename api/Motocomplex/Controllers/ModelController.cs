@@ -53,8 +53,12 @@ namespace Motocomplex.Controllers
                 return BadRequest(string.Join(Environment.NewLine, validationErrors));
             }
 
-            var brandForCurrentModel = await _brandService.GetBrandById(modelDto.brandId);
-            if (brandForCurrentModel == null)
+            if (await _modelService.GetModelByName(modelDto.Name) != null)
+            {
+                return BadRequest("Model name is in use already");
+            }
+
+            if (await _brandService.GetBrandById(modelDto.brandId) == null)
             {
                 return NotFound("Brand not found");
             }
@@ -77,8 +81,12 @@ namespace Motocomplex.Controllers
                 return NotFound("Model not found");
             }
 
-            var brandForCurrentModel = await _brandService.GetBrandById(modelDto.brandId);
-            if (brandForCurrentModel == null)
+            if (await _modelService.GetModelByName(modelDto.Name) != null)
+            {
+                return BadRequest("Model name is in use already");
+            }
+
+            if (await _brandService.GetBrandById(modelDto.brandId) == null)
             {
                 return NotFound("Brand not found");
             }

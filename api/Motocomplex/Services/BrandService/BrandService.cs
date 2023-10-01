@@ -24,6 +24,12 @@ namespace Motocomplex.Services.BrandService
             return _mapper.Map<BrandDisplayDto>(brand);
         }
 
+        public async Task<BrandDisplayDto> GetBrandByName(string brandName)
+        {
+            var brand = await _brandRepository.GetBrandByName(brandName);
+            return _mapper.Map<BrandDisplayDto>(brand);
+        }
+
         public async Task<RespondListDto<BrandDisplayDto>> GetBrands(SieveModel query)
         {
             int pageSize = query.PageSize != null ? (int)query.PageSize : 40;

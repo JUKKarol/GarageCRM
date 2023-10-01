@@ -24,6 +24,12 @@ namespace Motocomplex.Services.ModelService
             return _mapper.Map<ModelDisplayDto>(model);
         }
 
+        public async Task<ModelDisplayDto> GetModelByName(string modelName)
+        {
+            var model = await _modelRepository.GetModelByNAme(modelName);
+            return _mapper.Map<ModelDisplayDto>(model);
+        }
+
         public async Task<RespondListDto<ModelDisplayDto>> GetModels(SieveModel query)
         {
             int pageSize = query.PageSize != null ? (int)query.PageSize : 40;

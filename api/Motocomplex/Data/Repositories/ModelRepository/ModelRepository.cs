@@ -21,6 +21,11 @@ namespace Motocomplex.Data.Repositories.ModelRepository
             return await _db.Models.FirstOrDefaultAsync(c => c.Id == modelId);
         }
 
+        public async Task<Model> GetModelByNAme(string modelName)
+        {
+            return await _db.Models.FirstOrDefaultAsync(c => c.Name.ToLower() == modelName.ToLower());
+        }
+
         public async Task<List<Model>> GetModels(SieveModel query)
         {
             var models = _db

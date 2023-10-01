@@ -50,6 +50,11 @@ namespace Motocomplex.Controllers
                 return BadRequest(string.Join(Environment.NewLine, validationErrors));
             }
 
+            if (await _brandService.GetBrandByName(brandDto.Name) != null)
+            {
+                return BadRequest("Brand name is in use already");
+            }
+
             return Ok(await _brandService.CreateBrand(brandDto));
         }
 
@@ -66,6 +71,11 @@ namespace Motocomplex.Controllers
             if (await _brandService.GetBrandById(brandDto.Id) == null)
             {
                 return NotFound("Brand not found");
+            }
+
+            if (await _brandService.GetBrandByName(brandDto.Name) != null)
+            {
+                return BadRequest("Brand name is in use already");
             }
 
             return Ok(await _brandService.UpdateBrand(brandDto));
