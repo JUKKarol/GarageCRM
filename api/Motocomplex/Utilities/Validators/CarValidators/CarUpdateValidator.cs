@@ -7,6 +7,9 @@ namespace Motocomplex.Utilities.Validators.CarValidators
     {
         public CarUpdateValidator()
         {
+            RuleFor(c => c.Id)
+                .NotEmpty().WithMessage("Id must not be empty.");
+
             RuleFor(c => c.Engine)
                 .NotEmpty().WithMessage("Engine must not be empty.")
                 .InclusiveBetween(100, 12000).WithMessage("Engine must be in the range of 100 to 12000 cm3.");

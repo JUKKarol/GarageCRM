@@ -7,6 +7,7 @@ namespace Motocomplex.Data.Repositories.CarRepository
     {
         Task<Car> GetCarById(Guid carId);
         Task<Car> GetCarByVin(string carVin);
+        Task<Car> GetCarByRegistrationNumber(string carRegistrationNumber);
         Task<List<Car>> GetCars(SieveModel query);
         Task<int> GetCarsCount(SieveModel query);
         Task<Car> CreateCar(Car car);

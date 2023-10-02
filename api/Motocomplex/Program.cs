@@ -3,16 +3,20 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Motocomplex.Data;
 using Motocomplex.Data.Repositories.BrandRepository;
+using Motocomplex.Data.Repositories.CarRepository;
 using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
 using Motocomplex.DTOs.BrandDTOs;
+using Motocomplex.DTOs.CarDTOs;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Services.BrandService;
+using Motocomplex.Services.CarService;
 using Motocomplex.Services.CustomerService;
 using Motocomplex.Services.ModelService;
 using Motocomplex.Utilities.Sieve;
 using Motocomplex.Utilities.Validators.BrandValidators;
+using Motocomplex.Utilities.Validators.CarValidators;
 using Motocomplex.Utilities.Validators.CustomerValidators;
 using Motocomplex.Utilities.Validators.ModelValidators;
 using Sieve.Models;
@@ -26,10 +30,7 @@ namespace Motocomplex
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -44,14 +45,18 @@ namespace Motocomplex
             builder.Services.AddScoped<IValidator<BrandUpdateDto>, BrandUpdateValidators>();
             builder.Services.AddScoped<IValidator<ModelCreateDto>, ModelCreateValidator>();
             builder.Services.AddScoped<IValidator<ModelUpdateDto>, ModelUpdateValidator>();
+            builder.Services.AddScoped<IValidator<CarCreateDto>, CarCreateValidator>();
+            builder.Services.AddScoped<IValidator<CarUpdateDto>, CarUpdateValidator>();
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IModelRepository, ModelRepository>();
+            builder.Services.AddScoped<ICarRepository, CarRepository>();
 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IModelService, ModelService>();
+            builder.Services.AddScoped<ICarService, CarService>();
 
             builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
@@ -65,7 +70,6 @@ namespace Motocomplex
                 dbContext.Database.Migrate();
             }
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

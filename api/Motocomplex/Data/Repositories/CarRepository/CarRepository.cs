@@ -26,6 +26,11 @@ namespace Motocomplex.Data.Repositories.CarRepository
             return await _db.Cars.FirstOrDefaultAsync(c => c.Vin == carVin);
         }
 
+        public async Task<Car> GetCarByRegistrationNumber(string carRegistrationNumber)
+        {
+            return await _db.Cars.FirstOrDefaultAsync(c => c.RegistrationNumber == carRegistrationNumber);
+        }
+
         public async Task<List<Car>> GetCars(SieveModel query)
         {
             var cars = _db
