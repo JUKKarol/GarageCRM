@@ -10,6 +10,7 @@ using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.CarDTOs;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.DTOs.ModelDTOs;
+using Motocomplex.Middlewares;
 using Motocomplex.Services.BrandService;
 using Motocomplex.Services.CarService;
 using Motocomplex.Services.CustomerService;
@@ -60,6 +61,8 @@ namespace Motocomplex
 
             builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
+            builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
             var app = builder.Build();
             var scope = app.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetService<MotocomplexContext>();
@@ -75,6 +78,8 @@ namespace Motocomplex
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
