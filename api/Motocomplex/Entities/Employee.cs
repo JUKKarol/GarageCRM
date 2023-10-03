@@ -11,6 +11,7 @@ namespace Motocomplex.Entities
         public string Surname { get; set; }
         public DateTime DateOfEmployment { get; set; } = DateTime.UtcNow;
         public UserRole Role { get; set; } = UserRole.Office;
+        public bool IsArchive { get; set; } = false;
 
         public List<Repair> Repairs { get; set; }
     }
