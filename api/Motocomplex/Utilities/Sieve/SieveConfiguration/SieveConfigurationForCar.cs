@@ -8,24 +8,24 @@ namespace Motocomplex.Utilities.Sieve.SieveConfiguration
         public void Configure(SievePropertyMapper mapper)
         {
             mapper.Property<Car>(c => c.Engine)
-              .CanFilter()
-              .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Car>(c => c.RegistrationNumber)
-              .CanFilter()
-              .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Car>(c => c.Vin)
-              .CanFilter()
-              .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Car>(c => c.yearOfProduction)
-              .CanFilter()
-              .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Car>(c => c.ModelId)
-              .CanFilter()
-              .CanSort();
+                .CanFilter()
+                .CanSort();
         }
     }
 }

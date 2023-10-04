@@ -8,40 +8,44 @@ namespace Motocomplex.Utilities.Sieve.SieveConfiguration
         public void Configure(SievePropertyMapper mapper)
         {
             mapper.Property<Customer>(c => c.CreatedAt)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.UpdatedAt)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.Name)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.PhoneNumber)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.Email)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.Nip)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.City)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.Address)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Customer>(c => c.PostalCode)
-               .CanFilter()
-               .CanSort();
+                .CanFilter()
+                .CanSort();
+
+            mapper.Property<Customer>(c => c.IsArchive)
+                .CanFilter()
+                .CanSort();
         }
     }
 }

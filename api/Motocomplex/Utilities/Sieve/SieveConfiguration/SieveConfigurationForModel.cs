@@ -8,18 +8,18 @@ namespace Motocomplex.Utilities.Sieve.SieveConfiguration
         public void Configure(SievePropertyMapper mapper)
         {
             mapper.Property<Model>(m => m.CreatedAt)
-            .CanSort();
+                .CanSort();
 
             mapper.Property<Model>(m => m.UpdatedAt)
-            .CanSort();
+                .CanSort();
 
             mapper.Property<Model>(m => m.brandId)
-            .CanFilter()
-            .CanSort();
+                .CanFilter()
+                .CanSort();
 
             mapper.Property<Model>(m => m.Name)
-             .CanFilter()
-             .CanSort();
+                .CanFilter()
+                .CanSort();
         }
     }
 }
