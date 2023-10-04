@@ -11,6 +11,6 @@ namespace Motocomplex.Services.CustomerService
         Task<CustomerDetailsDto> CreateCustomer(CustomerCreateDto customerDto);
         Task<CustomerDetailsDto> UpdateCustomer(CustomerUpdateDto customerDto);
         Task<bool> CheckIsCustomerInArchive(Guid customerId);
-        Task ChangeArchiveBool(Guid customerId, bool isArchive);
+        Task ChangeCustomerArchiveBool(Guid customerId, bool isArchive);
     }
 }

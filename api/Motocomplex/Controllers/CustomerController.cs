@@ -84,7 +84,7 @@ namespace Motocomplex.Controllers
                 return BadRequest("Customer is in archive already");
             }
 
-            await _customerService.ChangeArchiveBool(customerId, true);
+            await _customerService.ChangeCustomerArchiveBool(customerId, true);
 
             return Ok("Customer archived");
         }
@@ -102,7 +102,7 @@ namespace Motocomplex.Controllers
                 return BadRequest("Customer is not in archive");
             }
 
-            await _customerService.ChangeArchiveBool(customerId, false);
+            await _customerService.ChangeCustomerArchiveBool(customerId, false);
 
             return Ok("Customer archived back");
         }

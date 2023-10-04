@@ -70,7 +70,7 @@ namespace Motocomplex.Services.CustomerService
             }
         }
 
-        public async Task ChangeArchiveBool(Guid customerId, bool isArchive)
+        public async Task ChangeCustomerArchiveBool(Guid customerId, bool isArchive)
         {
             if (isArchive == true)
             {
