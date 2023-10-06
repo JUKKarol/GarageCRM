@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Motocomplex.DTOs.EmployeeDTOs;
+using Motocomplex.Enums;
 
 namespace Motocomplex.Utilities.Validators.EmployeeValidators
 {
@@ -17,7 +18,11 @@ namespace Motocomplex.Utilities.Validators.EmployeeValidators
 
             RuleFor(e => e.DateOfEmployment)
                .InclusiveBetween(new DateTime(1950, 1, 1), DateTime.UtcNow)
-                .WithMessage("Incorrect date.");
+               .WithMessage("Incorrect date.");
+
+            RuleFor(e => e.Role)
+               .IsInEnum()
+               .WithMessage("Incorrect role.");
         }
     }
 }

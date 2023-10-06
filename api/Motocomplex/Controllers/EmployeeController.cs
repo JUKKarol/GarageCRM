@@ -6,6 +6,8 @@ using Sieve.Models;
 
 namespace Motocomplex.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
@@ -48,8 +50,6 @@ namespace Motocomplex.Controllers
                 return BadRequest(string.Join(Environment.NewLine, validationErrors));
             }
 
-            //safety checks
-
             return Ok(await _employeeService.CreateEmployee(employeeDto));
         }
 
@@ -67,8 +67,6 @@ namespace Motocomplex.Controllers
             {
                 return NotFound("Employee not found");
             }
-
-            //safety checks
 
             return Ok(await _employeeService.UpdateEmployee(employeeDto));
         }
