@@ -70,5 +70,41 @@ namespace Motocomplex.Controllers
 
             return Ok(await _employeeService.UpdateEmployee(employeeDto));
         }
+
+        [HttpPut("archive")]
+        public async Task<IActionResult> ArchiveEmployee([FromQuery] Guid employeeId)
+        {
+            if (await _employeeService.GetEmployeeById(employeeId) == null)
+            {
+                return NotFound("Employee not found");
+            }
+
+            if (await _employeeService.CheckIsEmployeeInArchive(employeeId) == true)
+            {
+                return BadRequest("Employee is in archive already");
+            }
+
+            await _employeeService.ChangeEmployeeArchiveBool(employeeId, true);
+
+            return Ok("Employee archived");
+        }
+
+        [HttpPut("archive/back")]
+        public async Task<IActionResult> ArchiveBackEmployee([FromQuery] Guid employeeId)
+        {
+            if (await _employeeService.GetEmployeeById(employeeId) == null)
+            {
+                return NotFound("Employee not found");
+            }
+
+            if (await _employeeService.CheckIsEmployeeInArchive(employeeId) == false)
+            {
+                return BadRequest("Employee is not in archive");
+            }
+
+            await _employeeService.ChangeEmployeeArchiveBool(employeeId, false);
+
+            return Ok("Employee archived back");
+        }
     }
 }
