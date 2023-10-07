@@ -3,7 +3,6 @@ using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.DTOs.SharedDTOs;
 using Motocomplex.Entities;
-using Motocomplex.Utilities.Mappings;
 using Sieve.Models;
 
 namespace Motocomplex.Services.CustomerService
@@ -77,7 +76,7 @@ namespace Motocomplex.Services.CustomerService
                 await _customerRepository.AddToArchive(customerId);
             }
             else
-            { 
+            {
                 await _customerRepository.BackFromArchive(customerId);
             }
         }

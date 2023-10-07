@@ -1,4 +1,3 @@
-
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Motocomplex.Data;
@@ -92,7 +91,6 @@ namespace Motocomplex
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

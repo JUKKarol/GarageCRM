@@ -7,9 +7,13 @@ namespace Motocomplex.Services.BrandService
     public interface IBrandService
     {
         Task<BrandDisplayDto> GetBrandById(Guid brandId);
+
         Task<BrandDisplayDto> GetBrandByName(string brandName);
+
         Task<RespondListDto<BrandDisplayDto>> GetBrands(SieveModel query);
+
         Task<BrandDisplayDto> CreateBrand(BrandCreateDto brandDto);
+
         Task<BrandDisplayDto> UpdateBrand(BrandUpdateDto brandDto);
     }
 }

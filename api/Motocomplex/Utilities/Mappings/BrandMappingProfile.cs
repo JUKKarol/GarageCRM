@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Motocomplex.DTOs.BrandDTOs;
-using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Entities;
 
 namespace Motocomplex.Utilities.Mappings

@@ -1,12 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.CarDTOs;
-using Motocomplex.DTOs.ModelDTOs;
-using Motocomplex.Services.BrandService;
 using Motocomplex.Services.CarService;
 using Motocomplex.Services.ModelService;
-using Motocomplex.Utilities.Validators.ModelValidators;
 using Sieve.Models;
 
 namespace Motocomplex.Controllers

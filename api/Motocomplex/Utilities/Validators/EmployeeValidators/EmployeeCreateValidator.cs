@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Motocomplex.DTOs.EmployeeDTOs;
-using Motocomplex.Enums;
 
 namespace Motocomplex.Utilities.Validators.EmployeeValidators
 {

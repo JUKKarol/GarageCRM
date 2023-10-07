@@ -33,7 +33,7 @@ namespace Motocomplex.Controllers
             var customer = await _customerService.GetCustomerById(customerId);
 
             if (customer == null)
-            { 
+            {
                 return NotFound("Customer not found");
             }
 
@@ -41,7 +41,7 @@ namespace Motocomplex.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer([FromBody]CustomerCreateDto customerDto)
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerCreateDto customerDto)
         {
             var validationResult = await _customerCreateValidator.ValidateAsync(customerDto);
             if (!validationResult.IsValid)
@@ -72,7 +72,7 @@ namespace Motocomplex.Controllers
         }
 
         [HttpPut("archive")]
-        public async Task<IActionResult> ArchiveCustomer([FromQuery]Guid customerId)
+        public async Task<IActionResult> ArchiveCustomer([FromQuery] Guid customerId)
         {
             if (await _customerService.GetCustomerById(customerId) == null)
             {
@@ -80,7 +80,7 @@ namespace Motocomplex.Controllers
             }
 
             if (await _customerService.CheckIsCustomerInArchive(customerId) == true)
-            { 
+            {
                 return BadRequest("Customer is in archive already");
             }
 

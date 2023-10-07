@@ -1,6 +1,4 @@
-﻿using static Sieve.Extensions.MethodInfoExtended;
-
-namespace Motocomplex.DTOs.SharedDTOs
+﻿namespace Motocomplex.DTOs.SharedDTOs
 {
     public class RespondListDto<T>
     {
