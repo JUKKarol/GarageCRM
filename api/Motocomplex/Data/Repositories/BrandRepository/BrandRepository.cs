@@ -18,12 +18,12 @@ namespace Motocomplex.Data.Repositories.BrandRepository
 
         public async Task<Brand> GetBrandById(Guid brandId)
         {
-            return await _db.Brands.FirstOrDefaultAsync(c => c.Id == brandId);
+            return await _db.Brands.FirstOrDefaultAsync(b => b.Id == brandId);
         }
 
         public async Task<Brand> GetBrandByName(string brandName)
         {
-            return await _db.Brands.FirstOrDefaultAsync(c => c.Name.ToLower() == brandName.ToLower());
+            return await _db.Brands.FirstOrDefaultAsync(b => b.Name.ToLower() == brandName.ToLower());
         }
 
         public async Task<List<Brand>> GetBrands(SieveModel query)
@@ -61,7 +61,7 @@ namespace Motocomplex.Data.Repositories.BrandRepository
 
         public async Task<Brand> UpdateBrand(Brand updatedBrand)
         {
-            var brand = await _db.Brands.FirstOrDefaultAsync(c => c.Id == updatedBrand.Id);
+            var brand = await _db.Brands.FirstOrDefaultAsync(b => b.Id == updatedBrand.Id);
 
             var brandCraetedAt = brand.CreatedAt;
             updatedBrand.CreatedAt = brandCraetedAt;

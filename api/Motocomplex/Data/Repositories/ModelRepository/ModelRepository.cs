@@ -18,12 +18,12 @@ namespace Motocomplex.Data.Repositories.ModelRepository
 
         public async Task<Model> GetModelById(Guid modelId)
         {
-            return await _db.Models.FirstOrDefaultAsync(c => c.Id == modelId);
+            return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
         }
 
         public async Task<Model> GetModelByNAme(string modelName)
         {
-            return await _db.Models.FirstOrDefaultAsync(c => c.Name.ToLower() == modelName.ToLower());
+            return await _db.Models.FirstOrDefaultAsync(m => m.Name.ToLower() == modelName.ToLower());
         }
 
         public async Task<List<Model>> GetModels(SieveModel query)
@@ -61,7 +61,7 @@ namespace Motocomplex.Data.Repositories.ModelRepository
 
         public async Task<Model> UpdateModel(Model updatedModel)
         {
-            var model = await _db.Models.FirstOrDefaultAsync(c => c.Id == updatedModel.Id);
+            var model = await _db.Models.FirstOrDefaultAsync(m => m.Id == updatedModel.Id);
 
             var modelCraetedAt = model.CreatedAt;
             updatedModel.CreatedAt = modelCraetedAt;

@@ -18,7 +18,7 @@ namespace Motocomplex.Data.Repositories.EmployeeRepository
 
         public async Task<Employee> GetEmployeeById(Guid employeeId)
         {
-            return await _db.Employee.FirstOrDefaultAsync(c => c.Id == employeeId);
+            return await _db.Employee.FirstOrDefaultAsync(e => e.Id == employeeId);
         }
 
         public async Task<List<Employee>> GetEmployees(SieveModel query)
@@ -56,7 +56,7 @@ namespace Motocomplex.Data.Repositories.EmployeeRepository
 
         public async Task<Employee> UpdateEmployee(Employee updatedEmployee)
         {
-            var employee = await _db.Employee.FirstOrDefaultAsync(c => c.Id == updatedEmployee.Id);
+            var employee = await _db.Employee.FirstOrDefaultAsync(e => e.Id == updatedEmployee.Id);
 
             var employeeCraetedAt = employee.CreatedAt;
             var employeeIsArchive = employee.IsArchive;
@@ -73,7 +73,7 @@ namespace Motocomplex.Data.Repositories.EmployeeRepository
 
         public async Task<Employee> AddToArchive(Guid employeeId)
         {
-            var employee = await _db.Employee.FirstOrDefaultAsync(c => c.Id == employeeId);
+            var employee = await _db.Employee.FirstOrDefaultAsync(e => e.Id == employeeId);
             employee.IsArchive = true;
             await _db.SaveChangesAsync();
 
@@ -82,7 +82,7 @@ namespace Motocomplex.Data.Repositories.EmployeeRepository
 
         public async Task<Employee> BackFromArchive(Guid employeeId)
         {
-            var employee = await _db.Employee.FirstOrDefaultAsync(c => c.Id == employeeId);
+            var employee = await _db.Employee.FirstOrDefaultAsync(e => e.Id == employeeId);
             employee.IsArchive = false;
             await _db.SaveChangesAsync();
 
