@@ -59,7 +59,9 @@ namespace Motocomplex.Data.Repositories.CustomerRepository
             var customer = await _db.Customers.FirstOrDefaultAsync(c => c.Id == updatedCustomer.Id);
 
             var customerCraetedAt = customer.CreatedAt;
+            var customerIsArchive = customer.IsArchive;
             updatedCustomer.CreatedAt = customerCraetedAt;
+            updatedCustomer.IsArchive = customerIsArchive;
 
             var entry = _db.Entry(customer);
             entry.CurrentValues.SetValues(updatedCustomer);

@@ -59,7 +59,9 @@ namespace Motocomplex.Data.Repositories.EmployeeRepository
             var employee = await _db.Employee.FirstOrDefaultAsync(c => c.Id == updatedEmployee.Id);
 
             var employeeCraetedAt = employee.CreatedAt;
+            var employeeIsArchive = employee.IsArchive;
             updatedEmployee.CreatedAt = employeeCraetedAt;
+            updatedEmployee.IsArchive = employeeIsArchive;
 
             var entry = _db.Entry(employee);
             entry.CurrentValues.SetValues(updatedEmployee);
