@@ -3,7 +3,7 @@ using Motocomplex.DTOs.RepairDTOs;
 
 namespace Motocomplex.Utilities.Validators.RepairValidators
 {
-    public class RepairUpdateValidator: AbstractValidator<RepairUpdateDto>
+    public class RepairUpdateValidator : AbstractValidator<RepairUpdateDto>
     {
         public RepairUpdateValidator()
         {

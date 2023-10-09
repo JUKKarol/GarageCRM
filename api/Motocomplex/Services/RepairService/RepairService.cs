@@ -1,23 +1,27 @@
 ﻿using AutoMapper;
 using Motocomplex.Data.Repositories.EmployeeRepository;
 using Motocomplex.Data.Repositories.RepairRepository;
-using Motocomplex.DTOs.EmployeeDTOs;
 using Motocomplex.DTOs.RepairDTOs;
 using Motocomplex.DTOs.SharedDTOs;
 using Motocomplex.Entities;
 using Motocomplex.Enums;
+using Motocomplex.Services.EmployeeServices;
 using Sieve.Models;
 
 namespace Motocomplex.Services.RepairService
 {
     public class RepairService : IRepairService
     {
+        private readonly IEmployeeService _employeeService;
         private readonly IRepairRepository _repairRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
-        public RepairService(IRepairRepository repairRepository, IMapper mapper)
+        public RepairService(IEmployeeService employeeService, IRepairRepository repairRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
+            _employeeService = employeeService;
             _repairRepository = repairRepository;
+            _employeeRepository = employeeRepository;
             _mapper = mapper;
         }
 
@@ -45,17 +49,27 @@ namespace Motocomplex.Services.RepairService
         public async Task<RepairDisplayDto> CreateRepair(RepairCreateDto repairDto)
         {
             var repair = _mapper.Map<Repair>(repairDto);
+            repair.Employees = await _employeeService.GetEmployeesByIds(repairDto.EmployeesIds);
+
             await _repairRepository.CreateRepair(repair);
 
-            return _mapper.Map<RepairDisplayDto>(repair);
+            var repairResponse = _mapper.Map<RepairDisplayDto>(repair);
+            repairResponse.EmployeesIds = repairDto.EmployeesIds;
+
+            return repairResponse;
         }
 
-        public async Task<RepairDisplayDto> UpdateEmployee(RepairUpdateDto repairDto)
+        public async Task<RepairDisplayDto> UpdateRepair(RepairUpdateDto repairDto)
         {
             var repair = _mapper.Map<Repair>(repairDto);
+            repair.Employees = await _employeeService.GetEmployeesByIds(repairDto.EmployeesIds);
+
             await _repairRepository.UpdateRepair(repair);
 
-            return _mapper.Map<RepairDisplayDto>(repair);
+            var repairResponse = _mapper.Map<RepairDisplayDto>(repair);
+            repairResponse.EmployeesIds = repairDto.EmployeesIds;
+
+            return repairResponse;
         }
 
         public async Task<RepairDisplayDto> ChangeRepairStatus(Guid repairId, RepairStatus status)

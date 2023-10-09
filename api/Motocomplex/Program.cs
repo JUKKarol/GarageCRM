@@ -6,23 +6,27 @@ using Motocomplex.Data.Repositories.CarRepository;
 using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.Data.Repositories.EmployeeRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
+using Motocomplex.Data.Repositories.RepairRepository;
 using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.CarDTOs;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.DTOs.EmployeeDTOs;
 using Motocomplex.DTOs.ModelDTOs;
+using Motocomplex.DTOs.RepairDTOs;
 using Motocomplex.Middlewares;
 using Motocomplex.Services.BrandService;
 using Motocomplex.Services.CarService;
 using Motocomplex.Services.CustomerService;
 using Motocomplex.Services.EmployeeServices;
 using Motocomplex.Services.ModelService;
+using Motocomplex.Services.RepairService;
 using Motocomplex.Utilities.Sieve;
 using Motocomplex.Utilities.Validators.BrandValidators;
 using Motocomplex.Utilities.Validators.CarValidators;
 using Motocomplex.Utilities.Validators.CustomerValidators;
 using Motocomplex.Utilities.Validators.EmployeeValidators;
 using Motocomplex.Utilities.Validators.ModelValidators;
+using Motocomplex.Utilities.Validators.RepairValidators;
 using Sieve.Models;
 using Sieve.Services;
 
@@ -53,18 +57,22 @@ namespace Motocomplex
             builder.Services.AddScoped<IValidator<CarUpdateDto>, CarUpdateValidator>();
             builder.Services.AddScoped<IValidator<EmployeeCreateDto>, EmployeeCreateValidator>();
             builder.Services.AddScoped<IValidator<EmployeeUpdateDto>, EmployeeUpdateValidator>();
+            builder.Services.AddScoped<IValidator<RepairCreateDto>, RepairCreateValidator>();
+            builder.Services.AddScoped<IValidator<RepairUpdateDto>, RepairUpdateValidator>();
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IModelRepository, ModelRepository>();
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IModelService, ModelService>();
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IRepairService, RepairService>();
 
             builder.Services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 

@@ -1,5 +1,6 @@
 ﻿using Motocomplex.DTOs.EmployeeDTOs;
 using Motocomplex.DTOs.SharedDTOs;
+using Motocomplex.Entities;
 using Sieve.Models;
 
 namespace Motocomplex.Services.EmployeeServices
@@ -9,6 +10,10 @@ namespace Motocomplex.Services.EmployeeServices
         Task<EmployeeDetailsDto> GetEmployeeById(Guid employeeId);
 
         Task<RespondListDto<EmployeeDetailsDto>> GetEmployees(SieveModel query);
+
+        Task<List<Employee>> GetEmployeesByIds(List<Guid> employeeIds);
+
+        Task<bool> CheckIsAllEmployeesExist(List<Guid> employeesIds);
 
         Task<EmployeeDetailsDto> CreateEmployee(EmployeeCreateDto employeeDto);
 

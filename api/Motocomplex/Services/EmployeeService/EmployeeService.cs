@@ -39,6 +39,33 @@ namespace Motocomplex.Services.EmployeeServices
             return respondListDto;
         }
 
+        public async Task<List<Employee>> GetEmployeesByIds(List<Guid> employeeIds)
+        {
+            List<Employee> repairEmployees = new List<Employee>();
+
+            foreach (var employeeId in employeeIds)
+            {
+                var employee = await _employeeRepository.GetEmployeeById(employeeId);
+                repairEmployees.Add(employee);
+            }
+
+            return repairEmployees;
+        }
+
+        public async Task<bool> CheckIsAllEmployeesExist(List<Guid> employeesIds)
+        {
+            foreach (var employeeId in employeesIds)
+            {
+                var employee = await _employeeRepository.GetEmployeeById(employeeId);
+                if (employee == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public async Task<EmployeeDetailsDto> CreateEmployee(EmployeeCreateDto employeeDto)
         {
             var employee = _mapper.Map<Employee>(employeeDto);
