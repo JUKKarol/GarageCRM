@@ -27,6 +27,7 @@ using Motocomplex.Utilities.Validators.CustomerValidators;
 using Motocomplex.Utilities.Validators.EmployeeValidators;
 using Motocomplex.Utilities.Validators.ModelValidators;
 using Motocomplex.Utilities.Validators.RepairValidators;
+using Serilog;
 using Sieve.Models;
 using Sieve.Services;
 
@@ -41,6 +42,12 @@ namespace Motocomplex
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
 
             builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
 
@@ -92,6 +99,7 @@ namespace Motocomplex
             app.UseSwaggerUI();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
 
