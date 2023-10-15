@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Motocomplex.DTOs.BrandDTOs;
+using Motocomplex.DTOs.BrandModelDTOs;
 using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Services.BrandService;
 using Motocomplex.Services.ModelService;
@@ -14,12 +16,14 @@ namespace Motocomplex.Controllers
         private readonly IModelService _modelService;
         private readonly IBrandService _brandService;
         private readonly IValidator<ModelCreateDto> _modelCreateValidator;
+        private readonly IValidator<BrandModelCreateDto> _brandModelCreateValidator;
         private readonly IValidator<ModelUpdateDto> _modelUpdateValidator;
 
-        public ModelController(IModelService modelService, IBrandService brandService, IValidator<ModelCreateDto> modelCreateValidator, IValidator<ModelUpdateDto> modelUpdateValidator)
+        public ModelController(IModelService modelService, IBrandService brandService, IValidator<ModelCreateDto> modelCreateValidator, IValidator<BrandModelCreateDto> brandModelCreateValidator, IValidator<ModelUpdateDto> modelUpdateValidator)
         {
             _modelService = modelService;
             _modelCreateValidator = modelCreateValidator;
+            _brandModelCreateValidator = brandModelCreateValidator;
             _modelUpdateValidator = modelUpdateValidator;
             _brandService = brandService;
         }
@@ -64,6 +68,22 @@ namespace Motocomplex.Controllers
             }
 
             return Ok(await _modelService.CreateModel(modelDto));
+        }
+
+        [HttpPost("seed")]
+        public async Task<IActionResult> CreateMassModel([FromBody] List<BrandModelCreateDto> brandModelDto)
+        {
+            foreach (var brandModel in brandModelDto)
+            {
+                var validationResult = await _brandModelCreateValidator.ValidateAsync(brandModel);
+                if (!validationResult.IsValid)
+                {
+                    var validationErrors = validationResult.Errors.Select(error => error.ErrorMessage);
+                    return BadRequest(string.Join(Environment.NewLine, validationErrors));
+                }
+            }
+
+            return Ok(await _modelService.CreateMassModel(brandModelDto));
         }
 
         [HttpPut]
