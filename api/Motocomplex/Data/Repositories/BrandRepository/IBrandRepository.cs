@@ -15,6 +15,8 @@ namespace Motocomplex.Data.Repositories.BrandRepository
 
         Task<Brand> CreateBrand(Brand brand);
 
+        Task<List<Brand>> CreateBrands(List<Brand> brands);
+
         Task<Brand> UpdateBrand(Brand updatedBrand);
     }
 }

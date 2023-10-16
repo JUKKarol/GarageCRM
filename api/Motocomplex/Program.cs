@@ -8,6 +8,7 @@ using Motocomplex.Data.Repositories.EmployeeRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
 using Motocomplex.Data.Repositories.RepairRepository;
 using Motocomplex.DTOs.BrandDTOs;
+using Motocomplex.DTOs.BrandModelDTOs;
 using Motocomplex.DTOs.CarDTOs;
 using Motocomplex.DTOs.CustomerDtos;
 using Motocomplex.DTOs.EmployeeDTOs;
@@ -21,6 +22,7 @@ using Motocomplex.Services.EmployeeServices;
 using Motocomplex.Services.ModelService;
 using Motocomplex.Services.RepairService;
 using Motocomplex.Utilities.Sieve;
+using Motocomplex.Utilities.Validators.BrandModelValidators;
 using Motocomplex.Utilities.Validators.BrandValidators;
 using Motocomplex.Utilities.Validators.CarValidators;
 using Motocomplex.Utilities.Validators.CustomerValidators;
@@ -66,6 +68,7 @@ namespace Motocomplex
             builder.Services.AddScoped<IValidator<EmployeeUpdateDto>, EmployeeUpdateValidator>();
             builder.Services.AddScoped<IValidator<RepairCreateDto>, RepairCreateValidator>();
             builder.Services.AddScoped<IValidator<RepairUpdateDto>, RepairUpdateValidator>();
+            builder.Services.AddScoped<IValidator<BrandModelCreateDto>, BrandModelCreateValidator>();
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();

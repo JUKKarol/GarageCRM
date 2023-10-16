@@ -1,4 +1,5 @@
-﻿using Motocomplex.DTOs.ModelDTOs;
+﻿using Motocomplex.DTOs.BrandModelDTOs;
+using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.DTOs.SharedDTOs;
 using Sieve.Models;
 
@@ -13,6 +14,8 @@ namespace Motocomplex.Services.ModelService
         Task<RespondListDto<ModelDisplayDto>> GetModels(SieveModel query);
 
         Task<ModelDisplayDto> CreateModel(ModelCreateDto modelDto);
+
+        Task<List<ModelDisplayDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto);
 
         Task<ModelDisplayDto> UpdateModel(ModelUpdateDto modelDto);
     }

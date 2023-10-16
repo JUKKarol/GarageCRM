@@ -59,6 +59,14 @@ namespace Motocomplex.Data.Repositories.BrandRepository
             return brand;
         }
 
+        public async Task<List<Brand>> CreateBrands(List<Brand> brands)
+        {
+            await _db.Brands.AddRangeAsync(brands);
+            await _db.SaveChangesAsync();
+
+            return brands;
+        }
+
         public async Task<Brand> UpdateBrand(Brand updatedBrand)
         {
             var brand = await _db.Brands.FirstOrDefaultAsync(b => b.Id == updatedBrand.Id);

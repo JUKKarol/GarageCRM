@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Motocomplex.Data.Repositories.BrandRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
+using Motocomplex.DTOs.BrandModelDTOs;
 using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.DTOs.SharedDTOs;
 using Motocomplex.Entities;
@@ -10,11 +12,13 @@ namespace Motocomplex.Services.ModelService
     public class ModelService : IModelService
     {
         private readonly IModelRepository _modelRepository;
+        private readonly IBrandRepository _brandRepository;
         private readonly IMapper _mapper;
 
-        public ModelService(IModelRepository modelRepository, IMapper mapper)
+        public ModelService(IModelRepository modelRepository, IBrandRepository brandRepository, IMapper mapper)
         {
             _modelRepository = modelRepository;
+            _brandRepository = brandRepository;
             _mapper = mapper;
         }
 
@@ -26,7 +30,7 @@ namespace Motocomplex.Services.ModelService
 
         public async Task<ModelDisplayDto> GetModelByName(string modelName)
         {
-            var model = await _modelRepository.GetModelByNAme(modelName);
+            var model = await _modelRepository.GetModelByName(modelName);
             return _mapper.Map<ModelDisplayDto>(model);
         }
 
@@ -51,6 +55,30 @@ namespace Motocomplex.Services.ModelService
             await _modelRepository.CreateModel(model);
 
             return _mapper.Map<ModelDisplayDto>(model);
+        }
+
+        public async Task<List<ModelDisplayDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto)
+        {
+            var brands = await _brandRepository.CreateBrands(_mapper.Map<List<Brand>>(brandModelDto));
+            var models = new List<Model>();
+
+            foreach (var brandModel in brandModelDto)
+            {
+                var brand = brands.FirstOrDefault(b => b.Name == brandModel.BrandName);
+
+                if (brand != null)
+                {
+                    var brandModels = brandModel.ModelNames.Select(modelName => new Model
+                    {
+                        brandId = brand.Id,
+                        Name = modelName
+                    });
+
+                    models.AddRange(brandModels);
+                }
+            }
+
+            return _mapper.Map<List<ModelDisplayDto>>(await _modelRepository.CreateModels(models));
         }
 
         public async Task<ModelDisplayDto> UpdateModel(ModelUpdateDto modelDto)

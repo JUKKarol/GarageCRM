@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.BrandModelDTOs;
 using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Services.BrandService;
@@ -81,6 +80,14 @@ namespace Motocomplex.Controllers
                     var validationErrors = validationResult.Errors.Select(error => error.ErrorMessage);
                     return BadRequest(string.Join(Environment.NewLine, validationErrors));
                 }
+            }
+
+            foreach (var brandModel in brandModelDto)
+            {
+                if (await _brandService.GetBrandByName(brandModel.BrandName) != null)
+                {
+                    return BadRequest($"Can not duplicate brand: {brandModel.BrandName}");
+                };
             }
 
             return Ok(await _modelService.CreateMassModel(brandModelDto));

@@ -21,7 +21,7 @@ namespace Motocomplex.Data.Repositories.ModelRepository
             return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
         }
 
-        public async Task<Model> GetModelByNAme(string modelName)
+        public async Task<Model> GetModelByName(string modelName)
         {
             return await _db.Models.FirstOrDefaultAsync(m => m.Name.ToLower() == modelName.ToLower());
         }
@@ -57,6 +57,14 @@ namespace Motocomplex.Data.Repositories.ModelRepository
             await _db.SaveChangesAsync();
 
             return model;
+        }
+
+        public async Task<List<Model>> CreateModels(List<Model> models)
+        {
+            await _db.Models.AddRangeAsync(models);
+            await _db.SaveChangesAsync();
+
+            return models;
         }
 
         public async Task<Model> UpdateModel(Model updatedModel)
