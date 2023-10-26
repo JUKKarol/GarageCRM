@@ -54,7 +54,7 @@ namespace Motocomplex
             builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
 
             builder.Services.AddDbContext<MotocomplexContext>();
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddScoped<IValidator<CustomerCreateDto>, CustomerCreateValidator>();
             builder.Services.AddScoped<IValidator<CustomerUpdateDto>, CustomerUpdateValidator>();
