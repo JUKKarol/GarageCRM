@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Motocomplex.Entities;
 
 namespace Motocomplex.Data
 {
-    public class MotocomplexContext : DbContext
+    public class MotocomplexContext : IdentityDbContext
     {
         private readonly IConfiguration _configuration;
 

@@ -1,5 +1,7 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Motocomplex.Data;
 using Motocomplex.Data.Repositories.BrandRepository;
 using Motocomplex.Data.Repositories.CarRepository;
@@ -32,6 +34,7 @@ using Motocomplex.Utilities.Validators.RepairValidators;
 using Serilog;
 using Sieve.Models;
 using Sieve.Services;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Motocomplex
 {
@@ -43,7 +46,17 @@ namespace Motocomplex
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
 
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Configuration)
@@ -55,6 +68,10 @@ namespace Motocomplex
 
             builder.Services.AddDbContext<MotocomplexContext>();
             builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddAuthorization();
+            builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+                .AddEntityFrameworkStores<MotocomplexContext>();
 
             builder.Services.AddScoped<IValidator<CustomerCreateDto>, CustomerCreateValidator>();
             builder.Services.AddScoped<IValidator<CustomerUpdateDto>, CustomerUpdateValidator>();
@@ -100,6 +117,8 @@ namespace Motocomplex
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            app.MapIdentityApi<IdentityUser>();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseSerilogRequestLogging();
