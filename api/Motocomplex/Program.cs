@@ -115,9 +115,11 @@ namespace Motocomplex
                 dbContext.Database.Migrate();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI();
-
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
             app.MapIdentityApi<IdentityUser>();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
