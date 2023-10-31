@@ -9,6 +9,7 @@ using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.Data.Repositories.EmployeeRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
 using Motocomplex.Data.Repositories.RepairRepository;
+using Motocomplex.Data.Seeders;
 using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.BrandModelDTOs;
 using Motocomplex.DTOs.CarDTOs;
@@ -114,6 +115,9 @@ namespace Motocomplex
             {
                 dbContext.Database.Migrate();
             }
+
+            var seeder = new Seeder(dbContext);
+            seeder.Seed();
 
             if (app.Environment.IsDevelopment())
             {
