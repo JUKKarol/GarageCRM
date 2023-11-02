@@ -26,12 +26,10 @@ namespace Motocomplex.Data.Seeders
 
                 var modelGenerator = new Faker<Model>()
                     .RuleFor(m => m.Name, f => f.Vehicle.Model());
-                //id
 
                 var employeeGenerator = new Faker<Employee>(locale)
                     .RuleFor(e => e.Name, f => f.Person.FirstName)
                     .RuleFor(e => e.Surname, f => f.Person.LastName);
-                //repairs
 
                 var customerGenerator = new Faker<Customer>(locale)
                     .RuleFor(c => c.Name, f => f.Person.FullName)
@@ -41,22 +39,32 @@ namespace Motocomplex.Data.Seeders
                     .RuleFor(c => c.City, f => f.Person.Address.City)
                     .RuleFor(c => c.Address, f => f.Person.Address.Street)
                     .RuleFor(c => c.PostalCode, f => f.Person.Address.ZipCode);
-                //repairs
 
                 var carGenerator = new Faker<Car>()
                     .RuleFor(c => c.Engine, f => GenerateRandomInRange(800, 4000))
                     .RuleFor(c => c.RegistrationNumber, f => f.Vehicle.Vin())
                     .RuleFor(c => c.Vin, f => f.Random.String2(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") + f.Random.String2(2, "0123456789") + f.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
                     .RuleFor(c => c.yearOfProduction, f => GenerateRandomInRange(1950, DateTime.UtcNow.Year));
-                //model id
-                //repairs
 
                 var repairGenerator = new Faker<Repair>()
                    .RuleFor(r => r.Price, f => GenerateRandomInRange(10000, 1000000))
                    .RuleFor(r => r.Description, f => f.Lorem.Sentence(GenerateRandomInRange(5, 20)));
-                //carId
-                //customerId
-                //employee
+
+                var brands = brandGenerator.Generate(100);
+                var models = modelGenerator.Generate(100);
+                var employees = employeeGenerator.Generate(100);
+                var customers = customerGenerator.Generate(100);
+                var cars = carGenerator.Generate(100);
+                var repairs = repairGenerator.Generate(100);
+
+                _db.AddRange(brands);
+                _db.AddRange(models);
+                _db.AddRange(employees);
+                _db.AddRange(customers);
+                _db.AddRange(cars);
+                _db.AddRange(repairs);
+
+                _db.SaveChanges();
             }
 
             string GenerateNIP()
