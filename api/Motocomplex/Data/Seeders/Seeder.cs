@@ -50,12 +50,41 @@ namespace Motocomplex.Data.Seeders
                    .RuleFor(r => r.Price, f => GenerateRandomInRange(10000, 1000000))
                    .RuleFor(r => r.Description, f => f.Lorem.Sentence(GenerateRandomInRange(5, 20)));
 
-                var brands = brandGenerator.Generate(100);
-                var models = modelGenerator.Generate(100);
-                var employees = employeeGenerator.Generate(100);
-                var customers = customerGenerator.Generate(100);
-                var cars = carGenerator.Generate(100);
-                var repairs = repairGenerator.Generate(100);
+                List<Brand> brands;
+                List<Brand> models;
+                List<Brand> employees;
+                List<Brand> customers;
+                List<Brand> cars;
+                List<Brand> repairs;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    var brand = brandGenerator.Generate();
+
+                    var model = modelGenerator.Generate();
+                    model.brandId = brand.Id;
+
+                    var employee = employeeGenerator.Generate();
+                    var customer = customerGenerator.Generate();
+
+                    var car = carGenerator.Generate();
+                    car.ModelId = model.Id;
+
+                    var repair = repairGenerator.Generate();
+                    var employeesList = new List<Employee> { employee };
+                    var repairsList = new List<Repair> { repair };
+                    repair.CarId = car.Id;
+                    repair.CustomerId = customer.Id;
+                    repair.Employees = employeesList;
+                    employee.Repairs = repairsList;
+                }
+
+                //var brands = brandGenerator.Generate(100);
+                //var models = modelGenerator.Generate(100);
+                //var employees = employeeGenerator.Generate(100);
+                //var customers = customerGenerator.Generate(100);
+                //var cars = carGenerator.Generate(100);
+                //var repairs = repairGenerator.Generate(100);
 
                 _db.AddRange(brands);
                 _db.AddRange(models);
