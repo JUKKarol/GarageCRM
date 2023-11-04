@@ -15,7 +15,7 @@ namespace Motocomplex.Data.Seeders
         {
             _db = db;
         }
-        public void Seed()
+        public void Seed(int recordsToSeed)
         {
             if (!_db.Brands.Any() && !_db.Cars.Any() && !_db.Customers.Any() && !_db.Employee.Any() && !_db.Repairs.Any())
             {
@@ -50,41 +50,39 @@ namespace Motocomplex.Data.Seeders
                    .RuleFor(r => r.Price, f => GenerateRandomInRange(10000, 1000000))
                    .RuleFor(r => r.Description, f => f.Lorem.Sentence(GenerateRandomInRange(5, 20)));
 
-                List<Brand> brands;
-                List<Brand> models;
-                List<Brand> employees;
-                List<Brand> customers;
-                List<Brand> cars;
-                List<Brand> repairs;
+                List<Brand> brands = new List<Brand>();
+                List<Model> models = new List<Model>();
+                List<Employee> employees = new List<Employee>();
+                List<Customer> customers = new List<Customer>();
+                List<Car> cars = new List<Car>();
+                List<Repair> repairs = new List<Repair>();
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < recordsToSeed; i++)
                 {
                     var brand = brandGenerator.Generate();
-
                     var model = modelGenerator.Generate();
-                    model.brandId = brand.Id;
-
                     var employee = employeeGenerator.Generate();
                     var customer = customerGenerator.Generate();
-
                     var car = carGenerator.Generate();
-                    car.ModelId = model.Id;
-
                     var repair = repairGenerator.Generate();
+
                     var employeesList = new List<Employee> { employee };
                     var repairsList = new List<Repair> { repair };
+
+                    model.brandId = brand.Id;
+                    car.ModelId = model.Id;
                     repair.CarId = car.Id;
                     repair.CustomerId = customer.Id;
                     repair.Employees = employeesList;
                     employee.Repairs = repairsList;
-                }
 
-                //var brands = brandGenerator.Generate(100);
-                //var models = modelGenerator.Generate(100);
-                //var employees = employeeGenerator.Generate(100);
-                //var customers = customerGenerator.Generate(100);
-                //var cars = carGenerator.Generate(100);
-                //var repairs = repairGenerator.Generate(100);
+                    brands.Add(brand);
+                    models.Add(model);
+                    employees.Add(employee);
+                    customers.Add(customer);
+                    cars.Add(car);
+                    repairs.Add(repair);
+                }
 
                 _db.AddRange(brands);
                 _db.AddRange(models);

@@ -117,7 +117,8 @@ namespace Motocomplex
             }
 
             var seeder = new Seeder(dbContext);
-            seeder.Seed();
+            int recordsToSeed = 10;
+            seeder.Seed(recordsToSeed);
 
             if (app.Environment.IsDevelopment())
             {
