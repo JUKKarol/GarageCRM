@@ -1,4 +1,5 @@
-﻿using Motocomplex.Entities;
+﻿using Motocomplex.DTOs.ModelDTOs;
+using Motocomplex.Entities;
 using Sieve.Models;
 
 namespace Motocomplex.Data.Repositories.ModelRepository
@@ -6,6 +7,8 @@ namespace Motocomplex.Data.Repositories.ModelRepository
     public interface IModelRepository
     {
         Task<Model> GetModelById(Guid modelId);
+
+        Task<ModelWithBrandNameDto> GetModelWithBrandNameById(Guid modelId);
 
         Task<Model> GetModelByName(string modelName);
 

@@ -28,6 +28,11 @@ namespace Motocomplex.Services.ModelService
             return _mapper.Map<ModelDisplayDto>(model);
         }
 
+        public async Task<ModelWithBrandNameDto> GetModelWithBrandNameById(Guid modelId)
+        {
+            return await _modelRepository.GetModelWithBrandNameById(modelId);
+        }
+
         public async Task<ModelDisplayDto> GetModelByName(string modelName)
         {
             var model = await _modelRepository.GetModelByName(modelName);

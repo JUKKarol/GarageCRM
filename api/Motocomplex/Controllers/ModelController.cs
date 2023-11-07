@@ -36,7 +36,7 @@ namespace Motocomplex.Controllers
         [HttpGet("{modelId}")]
         public async Task<IActionResult> GetModel(Guid modelId)
         {
-            var model = await _modelService.GetModelById(modelId);
+            var model = await _modelService.GetModelWithBrandNameById(modelId);
 
             if (model == null)
             {

@@ -9,6 +9,8 @@ namespace Motocomplex.Services.ModelService
     {
         Task<ModelDisplayDto> GetModelById(Guid modelId);
 
+        Task<ModelWithBrandNameDto> GetModelWithBrandNameById(Guid modelId);
+
         Task<ModelDisplayDto> GetModelByName(string modelName);
 
         Task<RespondListDto<ModelDisplayDto>> GetModels(SieveModel query);
