@@ -9,6 +9,7 @@ using Motocomplex.Data.Repositories.CustomerRepository;
 using Motocomplex.Data.Repositories.EmployeeRepository;
 using Motocomplex.Data.Repositories.ModelRepository;
 using Motocomplex.Data.Repositories.RepairRepository;
+using Motocomplex.Data.Repositories.ViewRepository;
 using Motocomplex.Data.Seeders;
 using Motocomplex.DTOs.BrandDTOs;
 using Motocomplex.DTOs.BrandModelDTOs;
@@ -94,6 +95,7 @@ namespace Motocomplex
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IRepairRepository, RepairRepository>();
+            builder.Services.AddScoped<IViewRepository, ViewRepository>();
 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IBrandService, BrandService>();

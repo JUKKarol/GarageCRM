@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Motocomplex.Data.Repositories.ViewRepository;
 using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Entities;
 using Sieve.Models;
@@ -10,11 +11,13 @@ namespace Motocomplex.Data.Repositories.ModelRepository
     {
         private readonly MotocomplexContext _db;
         private readonly ISieveProcessor _sieveProcessor;
+        private readonly IViewRepository _viewRepository;
 
-        public ModelRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
+        public ModelRepository(MotocomplexContext db, ISieveProcessor sieveProcessor, IViewRepository viewRepository)
         {
             _db = db;
             _sieveProcessor = sieveProcessor;
+            _viewRepository = viewRepository;
         }
 
         public async Task<Model> GetModelById(Guid modelId)
@@ -24,11 +27,9 @@ namespace Motocomplex.Data.Repositories.ModelRepository
 
         public async Task<ModelWithBrandNameDto> GetModelWithBrandNameById(Guid modelId)
         {
-            var model = await _db.Database
-                .SqlQuery<ModelWithBrandNameDto>($"SELECT * FROM [view_ModelWithBrandName]")
+            return await _db.Database
+                .SqlQuery<ModelWithBrandNameDto>(_viewRepository.Select(_viewRepository.modelWithBrandName))
                 .FirstOrDefaultAsync(m => m.ModelId == modelId);
-
-            return model;
         }
 
         public async Task<Model> GetModelByName(string modelName)
