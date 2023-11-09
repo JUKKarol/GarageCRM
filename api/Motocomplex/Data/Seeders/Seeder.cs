@@ -70,9 +70,13 @@ namespace Motocomplex.Data.Seeders
                     var repairsList = new List<Repair> { repair };
 
                     model.brandId = brand.Id;
+                    model.Brand = brand;
                     car.ModelId = model.Id;
+                    car.Model = model;
                     repair.CarId = car.Id;
+                    repair.Car = car;
                     repair.CustomerId = customer.Id;
+                    repair.Customer = customer;
                     repair.Employees = employeesList;
                     employee.Repairs = repairsList;
 

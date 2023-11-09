@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Motocomplex.DTOs.ModelDTOs;
 using Motocomplex.Entities;
 using Sieve.Models;
 using Sieve.Services;
@@ -17,6 +18,11 @@ namespace Motocomplex.Data.Repositories.ModelRepository
         }
 
         public async Task<Model> GetModelById(Guid modelId)
+        {
+            return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
+        }
+
+        public async Task<Model> GetModelWithBrandNameById(Guid modelId)
         {
             return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
         }
