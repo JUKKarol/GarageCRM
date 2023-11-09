@@ -27,9 +27,13 @@ namespace Motocomplex.Data.Repositories.ModelRepository
 
         public async Task<ModelWithBrandNameDto> GetModelWithBrandNameById(Guid modelId)
         {
-            return await _db.Database
-                .SqlQuery<ModelWithBrandNameDto>(_viewRepository.Select(_viewRepository.modelWithBrandName))
+            var queryForView = _viewRepository.Select(_viewRepository.modelWithBrandName);
+
+            var model = await _db.Database
+                .SqlQuery<ModelWithBrandNameDto>(queryForView)
                 .FirstOrDefaultAsync(m => m.ModelId == modelId);
+
+            return model;
         }
 
         public async Task<Model> GetModelByName(string modelName)
