@@ -66,11 +66,13 @@ namespace Motocomplex.Data.Seeders
                     var car = carGenerator.Generate();
                     var repair = repairGenerator.Generate();
 
+                    var modelList = new List<Model> { model };
                     var employeesList = new List<Employee> { employee };
                     var repairsList = new List<Repair> { repair };
 
                     model.brandId = brand.Id;
                     model.Brand = brand;
+                    brand.Models = modelList;
                     car.ModelId = model.Id;
                     car.Model = model;
                     repair.CarId = car.Id;
