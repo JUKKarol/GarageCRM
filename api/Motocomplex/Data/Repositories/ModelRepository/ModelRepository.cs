@@ -19,23 +19,19 @@ namespace Motocomplex.Data.Repositories.ModelRepository
 
         public async Task<Model> GetModelById(Guid modelId)
         {
-            return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
-        }
-
-        public async Task<Model> GetModelWithBrandNameById(Guid modelId)
-        {
-            return await _db.Models.FirstOrDefaultAsync(m => m.Id == modelId);
+            return await _db.Models.Include(m => m.Brand).FirstOrDefaultAsync(m => m.Id == modelId);
         }
 
         public async Task<Model> GetModelByName(string modelName)
         {
-            return await _db.Models.FirstOrDefaultAsync(m => m.Name.ToLower() == modelName.ToLower());
+            return await _db.Models.Include(m => m.Brand).FirstOrDefaultAsync(m => m.Name.ToLower() == modelName.ToLower());
         }
 
         public async Task<List<Model>> GetModels(SieveModel query)
         {
             var models = _db
                 .Models
+                .Include(m => m.Brand)
                 .AsNoTracking()
                 .AsQueryable();
 
