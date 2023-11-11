@@ -18,16 +18,16 @@ namespace Motocomplex.Services.BrandService
             _mapper = mapper;
         }
 
-        public async Task<BrandDisplayDto> GetBrandById(Guid brandId)
+        public async Task<BrandDetalisDto> GetBrandById(Guid brandId)
         {
             var brand = await _brandRepository.GetBrandById(brandId);
-            return _mapper.Map<BrandDisplayDto>(brand);
+            return _mapper.Map<BrandDetalisDto>(brand);
         }
 
-        public async Task<BrandDisplayDto> GetBrandByName(string brandName)
+        public async Task<BrandDetalisDto> GetBrandByName(string brandName)
         {
             var brand = await _brandRepository.GetBrandByName(brandName);
-            return _mapper.Map<BrandDisplayDto>(brand);
+            return _mapper.Map<BrandDetalisDto>(brand);
         }
 
         public async Task<RespondListDto<BrandDisplayDto>> GetBrands(SieveModel query)

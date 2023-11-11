@@ -22,26 +22,26 @@ namespace Motocomplex.Services.ModelService
             _mapper = mapper;
         }
 
-        public async Task<ModelDisplayDto> GetModelById(Guid modelId)
+        public async Task<ModelDetalisDto> GetModelById(Guid modelId)
         {
             var model = await _modelRepository.GetModelById(modelId);
-            return _mapper.Map<ModelDisplayDto>(model);
+            return _mapper.Map<ModelDetalisDto>(model);
         }
 
-        public async Task<ModelDisplayDto> GetModelByName(string modelName)
+        public async Task<ModelDetalisDto> GetModelByName(string modelName)
         {
             var model = await _modelRepository.GetModelByName(modelName);
-            return _mapper.Map<ModelDisplayDto>(model);
+            return _mapper.Map<ModelDetalisDto>(model);
         }
 
-        public async Task<RespondListDto<ModelDisplayDto>> GetModels(SieveModel query)
+        public async Task<RespondListDto<ModelDetalisDto>> GetModels(SieveModel query)
         {
             int pageSize = query.PageSize != null ? (int)query.PageSize : 40;
 
             var models = await _modelRepository.GetModels(query);
-            var modelsDto = _mapper.Map<List<ModelDisplayDto>>(models);
+            var modelsDto = _mapper.Map<List<ModelDetalisDto>>(models);
 
-            RespondListDto<ModelDisplayDto> respondListDto = new RespondListDto<ModelDisplayDto>();
+            RespondListDto<ModelDetalisDto> respondListDto = new RespondListDto<ModelDetalisDto>();
             respondListDto.Items = modelsDto;
             respondListDto.ItemsCount = await _modelRepository.GetModelsCount(query);
             respondListDto.PagesCount = (int)Math.Ceiling((double)respondListDto.ItemsCount / pageSize);
@@ -49,15 +49,15 @@ namespace Motocomplex.Services.ModelService
             return respondListDto;
         }
 
-        public async Task<ModelDisplayDto> CreateModel(ModelCreateDto modelDto)
+        public async Task<ModelDetalisDto> CreateModel(ModelCreateDto modelDto)
         {
             var model = _mapper.Map<Model>(modelDto);
             await _modelRepository.CreateModel(model);
 
-            return _mapper.Map<ModelDisplayDto>(model);
+            return _mapper.Map<ModelDetalisDto>(model);
         }
 
-        public async Task<List<ModelDisplayDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto)
+        public async Task<List<ModelDetalisDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto)
         {
             var brands = await _brandRepository.CreateBrands(_mapper.Map<List<Brand>>(brandModelDto));
             var models = new List<Model>();
@@ -78,15 +78,15 @@ namespace Motocomplex.Services.ModelService
                 }
             }
 
-            return _mapper.Map<List<ModelDisplayDto>>(await _modelRepository.CreateModels(models));
+            return _mapper.Map<List<ModelDetalisDto>>(await _modelRepository.CreateModels(models));
         }
 
-        public async Task<ModelDisplayDto> UpdateModel(ModelUpdateDto modelDto)
+        public async Task<ModelDetalisDto> UpdateModel(ModelUpdateDto modelDto)
         {
             var model = _mapper.Map<Model>(modelDto);
             await _modelRepository.UpdateModel(model);
 
-            return _mapper.Map<ModelDisplayDto>(model);
+            return _mapper.Map<ModelDetalisDto>(model);
         }
     }
 }

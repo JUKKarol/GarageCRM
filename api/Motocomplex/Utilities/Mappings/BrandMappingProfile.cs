@@ -10,6 +10,7 @@ namespace Motocomplex.Utilities.Mappings
         public BrandMappingProfile()
         {
             CreateMap<BrandDisplayDto, Brand>().ReverseMap();
+            CreateMap<Brand, BrandDetalisDto>().ForMember(dest => dest.Models, opt => opt.MapFrom(src => src.Models));
             CreateMap<BrandCreateDto, Brand>().ReverseMap();
             CreateMap<BrandUpdateDto, Brand>().ReverseMap();
             CreateMap<BrandModelCreateDto, Brand>()

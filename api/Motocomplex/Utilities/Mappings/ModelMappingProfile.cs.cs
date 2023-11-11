@@ -8,7 +8,8 @@ namespace Motocomplex.Utilities.Mappings
     {
         public ModelMappingProfile()
         {
-            CreateMap<Model, ModelDisplayDto>().AfterMap((src, dest) => dest.BrandName = src.Brand.Name);
+            CreateMap<Model, ModelDetalisDto>().AfterMap((src, dest) => dest.BrandName = src.Brand.Name);
+            CreateMap<Model, ModelDisplayDto>().ReverseMap();
             CreateMap<ModelCreateDto, Model>().ReverseMap();
             CreateMap<ModelUpdateDto, Model>().ReverseMap();
         }

@@ -127,7 +127,7 @@ namespace Motocomplex
             }
             app.MapIdentityApi<IdentityUser>();
 
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();

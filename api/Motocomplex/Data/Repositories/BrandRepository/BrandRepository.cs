@@ -18,12 +18,12 @@ namespace Motocomplex.Data.Repositories.BrandRepository
 
         public async Task<Brand> GetBrandById(Guid brandId)
         {
-            return await _db.Brands.FirstOrDefaultAsync(b => b.Id == brandId);
+            return await _db.Brands.Include(b => b.Models).FirstOrDefaultAsync(b => b.Id == brandId);
         }
 
         public async Task<Brand> GetBrandByName(string brandName)
         {
-            return await _db.Brands.FirstOrDefaultAsync(b => b.Name.ToLower() == brandName.ToLower());
+            return await _db.Brands.Include(b => b.Models).FirstOrDefaultAsync(b => b.Name.ToLower() == brandName.ToLower());
         }
 
         public async Task<List<Brand>> GetBrands(SieveModel query)
