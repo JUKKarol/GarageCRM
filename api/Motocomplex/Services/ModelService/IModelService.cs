@@ -7,16 +7,16 @@ namespace Motocomplex.Services.ModelService
 {
     public interface IModelService
     {
-        Task<ModelDetalisDto> GetModelById(Guid modelId);
+        Task<ModelDetailsDto> GetModelById(Guid modelId);
 
-        Task<ModelDetalisDto> GetModelByName(string modelName);
+        Task<ModelDetailsDto> GetModelByName(string modelName);
 
-        Task<RespondListDto<ModelDetalisDto>> GetModels(SieveModel query);
+        Task<RespondListDto<ModelDetailsDto>> GetModels(SieveModel query);
 
-        Task<ModelDetalisDto> CreateModel(ModelCreateDto modelDto);
+        Task<ModelDetailsDto> CreateModel(ModelCreateDto modelDto);
 
-        Task<List<ModelDetalisDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto);
+        Task<List<ModelDetailsDto>> CreateMassModel(List<BrandModelCreateDto> brandModelDto);
 
-        Task<ModelDetalisDto> UpdateModel(ModelUpdateDto modelDto);
+        Task<ModelDetailsDto> UpdateModel(ModelUpdateDto modelDto);
     }
 }

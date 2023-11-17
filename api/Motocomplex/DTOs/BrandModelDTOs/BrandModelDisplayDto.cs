@@ -6,6 +6,6 @@ namespace Motocomplex.DTOs.BrandModelDTOs
     public class BrandModelDisplayDto
     {
         public BrandDisplayDto Brand { get; set; }
-        public List<ModelDetalisDto> Models { get; set; }
+        public List<ModelDetailsDto> Models { get; set; }
     }
 }

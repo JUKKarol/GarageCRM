@@ -42,8 +42,8 @@ namespace Motocomplex.Data.Seeders
 
                 var carGenerator = new Faker<Car>()
                     .RuleFor(c => c.Engine, f => GenerateRandomInRange(800, 4000))
-                    .RuleFor(c => c.RegistrationNumber, f => f.Vehicle.Vin())
-                    .RuleFor(c => c.Vin, f => f.Random.String2(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") + f.Random.String2(2, "0123456789") + f.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+                    .RuleFor(c => c.RegistrationNumber, f => f.Random.String2(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") + f.Random.String2(2, "0123456789") + f.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+                    .RuleFor(c => c.Vin, f => f.Vehicle.Vin())
                     .RuleFor(c => c.yearOfProduction, f => GenerateRandomInRange(1950, DateTime.UtcNow.Year));
 
                 var repairGenerator = new Faker<Repair>()

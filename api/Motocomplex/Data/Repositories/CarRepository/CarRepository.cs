@@ -18,7 +18,11 @@ namespace Motocomplex.Data.Repositories.CarRepository
 
         public async Task<Car> GetCarById(Guid carId)
         {
-            return await _db.Cars.FirstOrDefaultAsync(c => c.Id == carId);
+            var car = await _db.Cars.Include(c => c.Model)
+                .ThenInclude(m => m.Brand)
+                .FirstOrDefaultAsync(c => c.Id == carId);
+
+            return car;
         }
 
         public async Task<Car> GetCarByVin(string carVin)

@@ -1,6 +1,6 @@
 ﻿namespace Motocomplex.DTOs.ModelDTOs
 {
-    public class ModelDetalisDto
+    public class ModelDetailsDto
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

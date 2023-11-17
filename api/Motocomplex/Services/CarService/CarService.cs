@@ -21,10 +21,10 @@ namespace Motocomplex.Services.CarService
             _mapper = mapper;
         }
 
-        public async Task<CarDisplayDto> GetCarById(Guid carId)
+        public async Task<CarDetailsDto> GetCarById(Guid carId)
         {
             var car = await _carRepository.GetCarById(carId);
-            return _mapper.Map<CarDisplayDto>(car);
+            return _mapper.Map<CarDetailsDto>(car);
         }
 
         public async Task<CarDisplayDto> GetCarByVin(string carVin)

@@ -6,7 +6,7 @@ namespace Motocomplex.Services.CarService
 {
     public interface ICarService
     {
-        Task<CarDisplayDto> GetCarById(Guid carId);
+        Task<CarDetailsDto> GetCarById(Guid carId);
 
         Task<CarDisplayDto> GetCarByVin(string carVin);
 
