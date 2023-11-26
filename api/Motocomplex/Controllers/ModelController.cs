@@ -10,23 +10,13 @@ namespace Motocomplex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ModelController : ControllerBase
+    public class ModelController(
+        IModelService _modelService,
+        IBrandService _brandService,
+        IValidator<ModelCreateDto> _modelCreateValidator,
+        IValidator<BrandModelCreateDto> _brandModelCreateValidator,
+        IValidator<ModelUpdateDto> _modelUpdateValidator) : ControllerBase
     {
-        private readonly IModelService _modelService;
-        private readonly IBrandService _brandService;
-        private readonly IValidator<ModelCreateDto> _modelCreateValidator;
-        private readonly IValidator<BrandModelCreateDto> _brandModelCreateValidator;
-        private readonly IValidator<ModelUpdateDto> _modelUpdateValidator;
-
-        public ModelController(IModelService modelService, IBrandService brandService, IValidator<ModelCreateDto> modelCreateValidator, IValidator<BrandModelCreateDto> brandModelCreateValidator, IValidator<ModelUpdateDto> modelUpdateValidator)
-        {
-            _modelService = modelService;
-            _modelCreateValidator = modelCreateValidator;
-            _brandModelCreateValidator = brandModelCreateValidator;
-            _modelUpdateValidator = modelUpdateValidator;
-            _brandService = brandService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetModels([FromQuery] SieveModel query)
         {

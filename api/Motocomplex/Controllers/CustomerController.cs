@@ -8,19 +8,11 @@ namespace Motocomplex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController(
+        ICustomerService _customerService,
+        IValidator<CustomerCreateDto> _customerCreateValidator,
+        IValidator<CustomerUpdateDto> _customerUpdateValidator) : ControllerBase
     {
-        private readonly ICustomerService _customerService;
-        private readonly IValidator<CustomerCreateDto> _customerCreateValidator;
-        private readonly IValidator<CustomerUpdateDto> _customerUpdateValidator;
-
-        public CustomerController(ICustomerService customerService, IValidator<CustomerCreateDto> customerCreateValidator, IValidator<CustomerUpdateDto> customerUpdateValidator)
-        {
-            _customerService = customerService;
-            _customerCreateValidator = customerCreateValidator;
-            _customerUpdateValidator = customerUpdateValidator;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetCustomers([FromQuery] SieveModel query)
         {

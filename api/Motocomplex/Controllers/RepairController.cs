@@ -12,25 +12,14 @@ namespace Motocomplex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RepairController : Controller
+    public class RepairController(
+        IRepairService _repairService,
+        IEmployeeService _employeeService,
+        ICustomerService _customerService,
+        ICarService _carService,
+        IValidator<RepairCreateDto> _repairCreateValidator,
+        IValidator<RepairUpdateDto> _repairUpdateValidator) : Controller
     {
-        private readonly IRepairService _repairService;
-        private readonly IEmployeeService _employeeService;
-        private readonly ICustomerService _customerService;
-        private readonly ICarService _carService;
-        private readonly IValidator<RepairCreateDto> _repairCreateValidator;
-        private readonly IValidator<RepairUpdateDto> _repairUpdateValidator;
-
-        public RepairController(IRepairService repairService, IEmployeeService employeeService, ICustomerService customerService, ICarService carService, IValidator<RepairCreateDto> repairCreateValidator, IValidator<RepairUpdateDto> repairUpdateValidator)
-        {
-            _repairService = repairService;
-            _employeeService = employeeService;
-            _customerService = customerService;
-            _carService = carService;
-            _repairCreateValidator = repairCreateValidator;
-            _repairUpdateValidator = repairUpdateValidator;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetRepairs([FromQuery] SieveModel query)
         {
