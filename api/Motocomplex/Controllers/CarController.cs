@@ -9,21 +9,12 @@ namespace Motocomplex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarController : ControllerBase
+    public class CarController(
+        ICarService _carService,
+        IModelService _modelService,
+        IValidator<CarCreateDto> _carCreateValidator,
+        IValidator<CarUpdateDto> _carUpdateValidator) : ControllerBase
     {
-        private readonly ICarService _carService;
-        private readonly IModelService _modelService;
-        private readonly IValidator<CarCreateDto> _carCreateValidator;
-        private readonly IValidator<CarUpdateDto> _carUpdateValidator;
-
-        public CarController(ICarService carService, IModelService modelService, IValidator<CarCreateDto> carCreateValidator, IValidator<CarUpdateDto> carUpdateValidator)
-        {
-            _carService = carService;
-            _modelService = modelService;
-            _carCreateValidator = carCreateValidator;
-            _carUpdateValidator = carUpdateValidator;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetCars([FromQuery] SieveModel query)
         {

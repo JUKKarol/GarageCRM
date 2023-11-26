@@ -8,19 +8,11 @@ namespace Motocomplex.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController(
+        IEmployeeService _employeeService,
+        IValidator<EmployeeCreateDto> _employeeCreateValidator,
+        IValidator<EmployeeUpdateDto> _employeeUpdateValidator) : ControllerBase
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IValidator<EmployeeCreateDto> _employeeCreateValidator;
-        private readonly IValidator<EmployeeUpdateDto> _employeeUpdateValidator;
-
-        public EmployeeController(IEmployeeService employeeService, IValidator<EmployeeCreateDto> employeeCreateValidator, IValidator<EmployeeUpdateDto> employeeUpdateValidator)
-        {
-            _employeeService = employeeService;
-            _employeeCreateValidator = employeeCreateValidator;
-            _employeeUpdateValidator = employeeUpdateValidator;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetEmployees([FromQuery] SieveModel query)
         {
