@@ -6,17 +6,10 @@ using Sieve.Services;
 
 namespace Motocomplex.Data.Repositories.ModelRepository
 {
-    public class ModelRepository : IModelRepository
+    public class ModelRepository(
+        MotocomplexContext _db,
+        ISieveProcessor _sieveProcessor) : IModelRepository
     {
-        private readonly MotocomplexContext _db;
-        private readonly ISieveProcessor _sieveProcessor;
-
-        public ModelRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
-        {
-            _db = db;
-            _sieveProcessor = sieveProcessor;
-        }
-
         public async Task<Model> GetModelById(Guid modelId)
         {
             return await _db.Models.Include(m => m.Brand).FirstOrDefaultAsync(m => m.Id == modelId);

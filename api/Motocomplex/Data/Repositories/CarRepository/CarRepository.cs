@@ -5,17 +5,10 @@ using Sieve.Services;
 
 namespace Motocomplex.Data.Repositories.CarRepository
 {
-    public class CarRepository : ICarRepository
+    public class CarRepository(
+        MotocomplexContext _db,
+        ISieveProcessor _sieveProcessor) : ICarRepository
     {
-        private readonly MotocomplexContext _db;
-        private readonly ISieveProcessor _sieveProcessor;
-
-        public CarRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
-        {
-            _db = db;
-            _sieveProcessor = sieveProcessor;
-        }
-
         public async Task<Car> GetCarById(Guid carId)
         {
             var car = await _db.Cars.Include(c => c.Model)

@@ -5,17 +5,10 @@ using Sieve.Services;
 
 namespace Motocomplex.Data.Repositories.EmployeeRepository
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository(
+        MotocomplexContext _db,
+        ISieveProcessor _sieveProcessor) : IEmployeeRepository
     {
-        private readonly MotocomplexContext _db;
-        private readonly ISieveProcessor _sieveProcessor;
-
-        public EmployeeRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
-        {
-            _db = db;
-            _sieveProcessor = sieveProcessor;
-        }
-
         public async Task<Employee> GetEmployeeById(Guid employeeId)
         {
             return await _db.Employee.FirstOrDefaultAsync(e => e.Id == employeeId);

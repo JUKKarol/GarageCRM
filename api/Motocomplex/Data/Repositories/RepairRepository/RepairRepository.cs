@@ -6,17 +6,10 @@ using Sieve.Services;
 
 namespace Motocomplex.Data.Repositories.RepairRepository
 {
-    public class RepairRepository : IRepairRepository
+    public class RepairRepository(
+        MotocomplexContext _db,
+        ISieveProcessor _sieveProcessor) : IRepairRepository
     {
-        private readonly MotocomplexContext _db;
-        private readonly ISieveProcessor _sieveProcessor;
-
-        public RepairRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
-        {
-            _db = db;
-            _sieveProcessor = sieveProcessor;
-        }
-
         public async Task<Repair> GetRepairById(Guid repairId)
         {
             return await _db.Repairs.FirstOrDefaultAsync(r => r.Id == repairId);

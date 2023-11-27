@@ -5,17 +5,10 @@ using Sieve.Services;
 
 namespace Motocomplex.Data.Repositories.BrandRepository
 {
-    public class BrandRepository : IBrandRepository
+    public class BrandRepository(
+        MotocomplexContext _db,
+        ISieveProcessor _sieveProcessor) : IBrandRepository
     {
-        private readonly MotocomplexContext _db;
-        private readonly ISieveProcessor _sieveProcessor;
-
-        public BrandRepository(MotocomplexContext db, ISieveProcessor sieveProcessor)
-        {
-            _db = db;
-            _sieveProcessor = sieveProcessor;
-        }
-
         public async Task<Brand> GetBrandById(Guid brandId)
         {
             return await _db.Brands.Include(b => b.Models).FirstOrDefaultAsync(b => b.Id == brandId);
