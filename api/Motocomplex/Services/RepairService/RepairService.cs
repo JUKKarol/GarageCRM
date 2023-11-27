@@ -10,21 +10,8 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.RepairService
 {
-    public class RepairService : IRepairService
+    public class RepairService(IEmployeeService _employeeService, IRepairRepository _repairRepository, IEmployeeRepository _employeeRepository, IMapper _mapper) : IRepairService
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IRepairRepository _repairRepository;
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly IMapper _mapper;
-
-        public RepairService(IEmployeeService employeeService, IRepairRepository repairRepository, IEmployeeRepository employeeRepository, IMapper mapper)
-        {
-            _employeeService = employeeService;
-            _repairRepository = repairRepository;
-            _employeeRepository = employeeRepository;
-            _mapper = mapper;
-        }
-
         public async Task<RepairDisplayDto> GetRepairById(Guid repairId)
         {
             var repair = await _repairRepository.GetRepairById(repairId);

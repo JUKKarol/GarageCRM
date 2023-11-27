@@ -7,17 +7,10 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.EmployeeServices
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(
+        IEmployeeRepository _employeeRepository,
+        IMapper _mapper) : IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly IMapper _mapper;
-
-        public EmployeeService(IEmployeeRepository employeeRepository, IMapper mapper)
-        {
-            _employeeRepository = employeeRepository;
-            _mapper = mapper;
-        }
-
         public async Task<EmployeeDetailsDto> GetEmployeeById(Guid employeeId)
         {
             var employee = await _employeeRepository.GetEmployeeById(employeeId);

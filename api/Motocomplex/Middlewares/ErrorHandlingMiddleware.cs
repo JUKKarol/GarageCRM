@@ -1,14 +1,7 @@
 ﻿namespace Motocomplex.Middlewares
 {
-    public class ErrorHandlingMiddleware : IMiddleware
+    public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> _logger) : IMiddleware
     {
-        private readonly ILogger<ErrorHandlingMiddleware> _logger;
-
-        public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger)
-        {
-            _logger = logger;
-        }
-
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try

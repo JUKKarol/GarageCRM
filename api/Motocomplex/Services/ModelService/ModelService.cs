@@ -9,19 +9,11 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.ModelService
 {
-    public class ModelService : IModelService
+    public class ModelService(
+        IModelRepository _modelRepository,
+        IBrandRepository _brandRepository,
+        IMapper _mapper) : IModelService
     {
-        private readonly IModelRepository _modelRepository;
-        private readonly IBrandRepository _brandRepository;
-        private readonly IMapper _mapper;
-
-        public ModelService(IModelRepository modelRepository, IBrandRepository brandRepository, IMapper mapper)
-        {
-            _modelRepository = modelRepository;
-            _brandRepository = brandRepository;
-            _mapper = mapper;
-        }
-
         public async Task<ModelDetailsDto> GetModelById(Guid modelId)
         {
             var model = await _modelRepository.GetModelById(modelId);

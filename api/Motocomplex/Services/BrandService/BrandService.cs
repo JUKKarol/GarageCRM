@@ -7,17 +7,10 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.BrandService
 {
-    public class BrandService : IBrandService
+    public class BrandService(
+        IBrandRepository _brandRepository,
+        IMapper _mapper) : IBrandService
     {
-        private readonly IBrandRepository _brandRepository;
-        private readonly IMapper _mapper;
-
-        public BrandService(IBrandRepository brandRepository, IMapper mapper)
-        {
-            _brandRepository = brandRepository;
-            _mapper = mapper;
-        }
-
         public async Task<BrandDetalisDto> GetBrandById(Guid brandId)
         {
             var brand = await _brandRepository.GetBrandById(brandId);

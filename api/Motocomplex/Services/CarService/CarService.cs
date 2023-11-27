@@ -8,19 +8,11 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.CarService
 {
-    public class CarService : ICarService
+    public class CarService(
+        ICarRepository _carRepository,
+        IBrandRepository _brandRepository,
+        IMapper _mapper) : ICarService
     {
-        private readonly ICarRepository _carRepository;
-        private readonly IBrandRepository _brandRepository;
-        private readonly IMapper _mapper;
-
-        public CarService(ICarRepository carRepository, IBrandRepository brandRepository, IMapper mapper)
-        {
-            _carRepository = carRepository;
-            _brandRepository = brandRepository;
-            _mapper = mapper;
-        }
-
         public async Task<CarDetailsDto> GetCarById(Guid carId)
         {
             var car = await _carRepository.GetCarById(carId);

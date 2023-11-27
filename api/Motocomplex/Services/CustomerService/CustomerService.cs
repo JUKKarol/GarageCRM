@@ -7,17 +7,10 @@ using Sieve.Models;
 
 namespace Motocomplex.Services.CustomerService
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService(
+        ICustomerRepository _customerRepository,
+        IMapper _mapper) : ICustomerService
     {
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IMapper _mapper;
-
-        public CustomerService(ICustomerRepository customerRepository, IMapper mapper)
-        {
-            _customerRepository = customerRepository;
-            _mapper = mapper;
-        }
-
         public async Task<CustomerDetailsDto> GetCustomerById(Guid customerId)
         {
             var customer = await _customerRepository.GetCustomerById(customerId);

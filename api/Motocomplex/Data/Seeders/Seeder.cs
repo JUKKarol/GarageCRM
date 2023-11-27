@@ -7,14 +7,8 @@ using System.Text;
 
 namespace Motocomplex.Data.Seeders
 {
-    public class Seeder
+    public class Seeder(MotocomplexContext _db)
     {
-        private readonly MotocomplexContext _db;
-
-        public Seeder(MotocomplexContext db)
-        {
-            _db = db;
-        }
         public void Seed(int recordsToSeed)
         {
             if (!_db.Brands.Any() && !_db.Cars.Any() && !_db.Customers.Any() && !_db.Employee.Any() && !_db.Repairs.Any())
